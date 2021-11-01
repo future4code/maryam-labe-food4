@@ -1,12 +1,15 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/urls";
+import { goToAddress } from "../routes/coordinator";
+
 
 export const signUpData = (body, clear, history) => {
+
   axios
     .post(`${BASE_URL}/signup`, body)
     .then((res) => {
       console.log(res.data);
-      // goToAddress(history);
+      goToAddress(history);
       clear();
     })
     .catch((err) => {

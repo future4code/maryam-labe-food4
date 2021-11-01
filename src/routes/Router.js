@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
+import Address from "../pages/Address/Address"
+import Profile from "../pages/Profile/Profile"
 
 const Router = () => {
   return (
@@ -15,13 +17,13 @@ const Router = () => {
           <Login />
         </Route>
 
-        {/* <Route exact path="/signup-address">
+        <Route exact path="/signup-address">
           <Address />
         </Route>
 
         <Route exact path="/profile">
           <Profile />
-        </Route> */}
+        </Route>
       </Switch>
     </BrowserRouter>
   );
