@@ -1,9 +1,26 @@
-import React from "react";
-import useForm from "../../hooks/useForm";
-import { loginData } from "../../services/user";
+import React          from "react";
+import useForm        from "../../hooks/useForm";
+import { loginData }  from "../../services/user";
+
+
+import Box              from '@mui/material/Box';
+import TextField        from '@mui/material/TextField';
+import Button           from '@mui/material/Button';
+import IconButton       from '@mui/material/IconButton';
+import InputAdornment   from '@mui/material/InputAdornment';
+import Visibility       from '@mui/icons-material/Visibility';
+import VisibilityOff    from '@mui/icons-material/VisibilityOff';
+
+
+
 
 const LoginForm = () => {
   const [form, onChange, clear] = useForm({ email: "", password: "" });
+
+  const [values, setValues] = React.useState({
+    password: '',
+    showPassword: false,
+  });
 
   const onSubmitForm = (event) => {
     event.preventDefault();
@@ -11,30 +28,72 @@ const LoginForm = () => {
     console.log(form);
   };
 
-  return (
-    <div>
-      <form onSubmit={onSubmitForm}>
-        <h1>Rappi4</h1>
-        <h3>Entrar</h3>
 
-        <input
-          type="email"
-          placeholder="Email"
-          name={"email"}
-          value={form.email}
-          onChange={onChange}
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+    showPassword: !values.showPassword,
+    });
+  };
+
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+
+  return (
+
+      <form onSubmit={onSubmitForm}>
+
+
+        <Box sx={{
+          display:'flex', 
+          flexDirection:'column'
+        }} >
+
+        <TextField
+            required 
+            margin="normal"
+            label='Email'
+            type='email'
+            variant="outlined" 
+            name={'email'}
+            value={form.email}
+            onChange={onChange}
         />
-        <input
-          type="password"
-          placeholder="Senha"
-          name={"password"}
+
+        <TextField 
+          required
+          label='Password'
+          type= {values.showPassword ? 'text':'password'}
+          variant="outlined" 
+          name={'password'}
           value={form.password}
           onChange={onChange}
+          InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <IconButton
+                aria-label='toggle password visibility'
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}>
+                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
         />
 
-        <button type={"submit"}>Criar</button>
+
+          <Box  type={'submit'} sx={{display:'flex', justifyContent:'center', marginTop:'16px' }} 
+          >
+            <Button  style={{minWidth: '343px'}} variant='contained' type='submit' size='large'> Entrar </Button>
+          </Box>
+
+        </Box>
       </form>
-    </div>
+
   );
 };
 

@@ -13,3 +13,7 @@ export const goToAddress = (history) => {
 export const goToProfile = (history) => {
   history.push("/profile");
 };
+
+export const goToCart = (history) => {
+  history.push("/cart");
+};
