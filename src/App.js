@@ -1,6 +1,7 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import SearchPage from './pages/SearchPage/SearchPage'
+import SearchPage from './pages/SearchPage/SearchPage';
+import RestaurantDetails from './pages/RestaurantDetails/RestaurantDetails'
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -26,7 +27,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-      <SearchPage/>
+      <RestaurantDetails/>
     </div>
   );
 }

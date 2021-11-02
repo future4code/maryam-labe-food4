@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Header from "../../component/Header/Header";
 import {SearchContainerStyle, RestauranteContainer} from './SearchContainerStyle';
 import { useForm } from '../../hooks/Hooks';
-
+import { useHistory, useParams } from "react-router-dom";
 
 const SearchPage = () => {
+
+    const history = useHistory();
+    const pathParams = useParams();
 
     const {form, inputChange, cleanFields} = useForm({
         searchInput: '',
@@ -115,6 +118,13 @@ const SearchPage = () => {
             ]
     )
 
+    const [choosenRestaurant, setChoosenRestaurant] = useState([])
+
+    const goToDetails = (restaurant) => {
+        setChoosenRestaurant()
+        history.push()
+    }
+
         const restaurants = exampleOfList.filter((restaurant)=>{
             return(
                 restaurant.name.toLowerCase().includes(form.searchInput.toLowerCase())
@@ -122,7 +132,9 @@ const SearchPage = () => {
         }).map((restaurant) =>{
             console.log(restaurant, 'teste')
         return(
-            <RestauranteContainer key={restaurant.id}>
+            <RestauranteContainer 
+            onClick={goToDetails()}
+            key={restaurant.id}>
             <img src={restaurant.logoUrl}/>
             <h3>{restaurant.name}</h3>
             <div>
@@ -132,7 +144,6 @@ const SearchPage = () => {
             </RestauranteContainer>
         )
     })
-
 
     useEffect(() => {
         setFoundRestaurants(restaurants)
