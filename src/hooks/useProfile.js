@@ -7,7 +7,7 @@ import {useEffect}      from 'react';
 
 
 
-const useProfile = (props) => {
+const useProfile = (token) => {
     const [userInfos, setUserInfos]         = useState({})
 
     useEffect(  ()  =>  {
@@ -32,7 +32,7 @@ const useProfile = (props) => {
             console.log(error.response)
         })
 
-    },[props])
+    },[token])
 
         return userInfos
 

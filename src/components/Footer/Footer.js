@@ -3,6 +3,8 @@ import React from 'react';
 import {goToLogin}    from "../../routes/coordinator";
 import {goToProfile}  from "../../routes/coordinator";
 import {goToCart}     from "../../routes/coordinator";
+import {goToSearch}   from "../../routes/coordinator";
+
 import {useHistory}   from 'react-router-dom';
 
 import BottomNavigation       from '@mui/material/BottomNavigation';
@@ -30,7 +32,7 @@ const Footer = () => {
         }}
         >
 
-            <BottomNavigationAction  onClick={() =>goToLogin(history)  }  icon={<HomeIcon />} />
+            <BottomNavigationAction  onClick={() =>goToSearch(history)  }  icon={<HomeIcon />} />
             <BottomNavigationAction  onClick={() =>goToCart(history)   }  icon={<ShoppingCartIcon />} />
             <BottomNavigationAction  onClick={() =>goToProfile(history)}  icon={<PersonIcon />} />
 
