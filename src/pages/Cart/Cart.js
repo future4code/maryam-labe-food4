@@ -9,12 +9,14 @@ import FormControl      from '@mui/material/FormControl';
 
 import CardCarrinho     from '../../components/CardCarrinho';
 import Endereco         from '../../components/Endereco';
+import useProtectedPage from "../../hooks/useProtectedPage"
 
 
 import {useState}       from 'react'
 
 
 const Cart = () => {
+    useProtectedPage()
 
     const [temCarrinho,setCarrinho] = useState(true)
 

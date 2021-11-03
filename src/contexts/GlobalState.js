@@ -1,35 +1,139 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { GlobalContext } from "./GlobalContext"
 import useForm from "../hooks/useForm"
-import { putAddAddress } from "../services/putAddAddress"
-import { getFullAddress } from "../services/getFullAddress"
+import { BASE_URL } from "../constants/urls"
+import axios from "axios"
+import { useHistory } from "react-router"
+import { goToProfile } from "../routes/coordinator"
 
 
 const GlobalState = (props) => {
     const [form, onChange, clear] = useForm({ street: "", number: "", neighbourhood: "", city: "", state: "", complement: "" })
+    const [userInfos, setUserInfos] = useState({})
+    const [userAddress, setUserAddress] = useState({})
+    const [ordersHistory, setOrdersHistory] = useState([])
     const token = localStorage.getItem("token")
+    const history = useHistory()
+
+    // Requisição para pegar histórico de ordens:
+
+    const getOrdersHistory = () => {
+
+        axios.get(`${BASE_URL}/orders/history`, {
+            headers: {
+                auth: localStorage.getItem("token")
+            }
+        })
+            .then((response) => {
+                // console.log(`DEU CERTO o getOrdersHistory:`)
+                setOrdersHistory(response.data.orders)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+
+    // Requisição para pegar os dados do usuário:
+
+    const getProfile = () => {
+
+        axios.get(`${BASE_URL}/profile`, {
+            headers: {
+                auth: localStorage.getItem("token")
+            }
+        })
+            .then((response) => {
+                // console.log(`DEU CERTO o getProfile:`)
+                setUserInfos({
+                    id: response.data.user.id,
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    cpf: response.data.user.cpf,
+                    hasAddress: response.data.user.hasAddress,
+                    address: response.data.user.address
+                })
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     // Requisição para pegar endereço do usuário;
 
-    // useEffect(() => {
-    //     getFullAddress()
-    // }, [token])
+    const getFullAddress = () => {
 
+        axios.get(`${BASE_URL}/profile/address`, {
+            headers: {
+                auth: localStorage.getItem("token")
+            }
+        })
+            .then((response) => {
+                setUserAddress({
+                    street: response.data.address.street,
+                    number: response.data.address.number,
+                    apartment: response.data.address.apartment,
+                    neighbourhood: response.data.address.neighbourhood,
+                    city: response.data.address.city,
+                    state: response.data.address.state
+                })
+                console.log(`DEU CERTO o getFullAddress `)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     // Atualização de endereço (tela Address.js);
 
+    const putAddAddress = () => {
+
+        const body = {
+            street: form.street,
+            number: form.number,
+            neighbourhood: form.neighbourhood,
+            city: form.city,
+            state: form.state,
+            complement: form.complement,
+        }
+        axios.put(`${BASE_URL}/address`, body, {
+            headers: {
+                auth: localStorage.getItem("token")
+            }
+        })
+            .then((response) => {
+                localStorage.setItem("token", response.data.token)
+                console.log(`DEU CERTO o putAddAddress `)
+                goToProfile(history)
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
     const onSendAddressForm = (event, history) => {
-        console.log(`Formulário funcionou!`, form)
         event.preventDefault()
         clear()
-        console.log(token)
-        putAddAddress(form)
-        // signUp(history)
+        putAddAddress()
         getFullAddress()
+        goToProfile(history)
     }
 
     return (
-        <GlobalContext.Provider value={{ onSendAddressForm, onChange, form }}>
+        <GlobalContext.Provider value={{
+            onSendAddressForm,
+            onChange,
+            form,
+            userInfos,
+            setUserInfos,
+            getFullAddress,
+            getProfile,
+            userAddress,
+            getOrdersHistory,
+            ordersHistory
+        }}>
             {props.children}
         </GlobalContext.Provider>
     )
