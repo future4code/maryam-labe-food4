@@ -1,10 +1,12 @@
 import { ProfileBox, MiddleContainer, EdditButton, InfosOrders, InfosAdress, InfosPerson, Body, History, Infos, MiddleBox, EachHistoryCardProfile } from "./styled"
-import React, { useContext, useEffect } from "react"
-import { GlobalContext } from "../../contexts/GlobalContext";
-import useProtectedPage from "../../hooks/useProtectedPage"
-import ImageEdit from "../../assets/edit.svg"
 import { goToAddress, goToChangeProfile } from "../../routes/coordinator"
-import { useHistory } from "react-router"
+import React, { useContext, useEffect } from "react"
+import { GlobalContext }      from "../../contexts/GlobalContext";
+import useProtectedPage       from "../../hooks/useProtectedPage"
+import ImageEdit              from "../../assets/edit.svg"
+import { useHistory }         from "react-router";
+import Typography             from '@mui/material/Typography';
+
 
 const Profile = () => {
   useProtectedPage()
@@ -27,30 +29,33 @@ const Profile = () => {
 
   return (
     <Body>
+      
       <ProfileBox>
-        <p>Meu Perfil</p>
+        <Typography>Meu Perfil</Typography>
       </ProfileBox>
 
       {userInfos && userInfos.name ? (
         <InfosPerson>
           <Infos>
 
-            <p>{userInfos && userInfos.name}</p>
-            <p>{userInfos && userInfos.email}</p>
-            <p>{userInfos && userInfos.cpf}</p>
+            <Typography>{userInfos && userInfos.name}</Typography>
+            <Typography>{userInfos && userInfos.email}</Typography>
+            <Typography>{userInfos && userInfos.cpf}</Typography>
 
           </Infos>
 
           <EdditButton alt="Name" src={ImageEdit} onClick={() => goToChangeProfile(history)} />
         </InfosPerson>
       ) : (
-        <h3>Carregando...Aguarde</h3>
+        <Typography>Carregando...Aguarde</Typography>
       )}
 
       <MiddleBox>
         <MiddleContainer>
           <InfosAdress>
-            <h4>Endereço cadastrado</h4>
+            <Typography color="primary.cinza" variant="body1">
+              Endereço cadastrado
+            </Typography>
             {userAddress && userAddress.street ? (<p>{userAddress && userAddress.street}, {userAddress && userAddress.number} - {userAddress && userAddress.neighbourhood}</p>) : (<h4>Carregando... Aguarde</h4>)}
           </InfosAdress>
 
@@ -60,7 +65,7 @@ const Profile = () => {
 
 
       <History>
-        <p>Histórico de pedidos</p>
+        <Typography>Histórico de pedidos</Typography>
         <hr />
       </History>
 

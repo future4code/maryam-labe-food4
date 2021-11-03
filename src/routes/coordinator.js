@@ -26,3 +26,7 @@ export const goToChangeProfile = (history) => {
   history.push("/change-profile");
 };
 
+export const goToHome = (history) => {
+  history.push("/home");
+};
+

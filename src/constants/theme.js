@@ -6,11 +6,6 @@ import {PaleLilac, BlueGrey} from "./colors";
 import '@fontsource/roboto/500.css';
 
 
-
-
-
-
-
 const theme = createTheme({
     typography: {
         fontFamily: 'Roboto',
