@@ -8,12 +8,14 @@ import { goToProfile } from "../routes/coordinator"
 
 
 const GlobalState = (props) => {
-    const [form, onChange, clear] = useForm({ street: "", number: "", neighbourhood: "", city: "", state: "", complement: "" })
-    const [userInfos, setUserInfos] = useState({})
-    const [userAddress, setUserAddress] = useState({})
+
+    const [form, onChange, clear]           = useForm({ street: "", number: "", neighbourhood: "", city: "", state: "", complement: "" })
+    const [userInfos, setUserInfos]         = useState({})
+    const [userAddress, setUserAddress]     = useState({})
     const [ordersHistory, setOrdersHistory] = useState([])
-    const token = localStorage.getItem("token")
-    const history = useHistory()
+    
+    const token                             = localStorage.getItem("token")
+    const history                           = useHistory()
 
     // Requisição para pegar histórico de ordens:
 
@@ -25,7 +27,7 @@ const GlobalState = (props) => {
             }
         })
             .then((response) => {
-                // console.log(`DEU CERTO o getOrdersHistory:`)
+                console.log(`DEU CERTO o getOrdersHistory:`)
                 setOrdersHistory(response.data.orders)
             })
             .catch((error) => {
@@ -35,7 +37,7 @@ const GlobalState = (props) => {
 
 
     // Requisição para pegar os dados do usuário:
-
+/*
     const getProfile = () => {
 
         axios.get(`${BASE_URL}/profile`, {
@@ -59,7 +61,7 @@ const GlobalState = (props) => {
                 console.log(error)
             })
     }
-
+*/
     // Requisição para pegar endereço do usuário;
 
     const getFullAddress = () => {
@@ -129,7 +131,6 @@ const GlobalState = (props) => {
             userInfos,
             setUserInfos,
             getFullAddress,
-            getProfile,
             userAddress,
             getOrdersHistory,
             ordersHistory

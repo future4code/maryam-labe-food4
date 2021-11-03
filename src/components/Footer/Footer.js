@@ -11,6 +11,8 @@ import HomeIcon               from '@mui/icons-material/Home';
 import ShoppingCartIcon       from '@mui/icons-material/ShoppingCart';
 import PersonIcon             from '@mui/icons-material/Person';
 import Paper                  from '@mui/material/Paper';
+import Box                    from '@mui/material/Box';
+
 
 
 
@@ -19,7 +21,6 @@ const Footer = () => {
     const [value, setValue] = React.useState(0);
     const history = useHistory()
     return (
-
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
         <BottomNavigation
         showLabels

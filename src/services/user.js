@@ -1,17 +1,15 @@
-import axios from "axios";
-import { BASE_URL } from "../constants/urls";
-import { goToAddress } from "../routes/coordinator";
+import axios            from "axios";
+import { BASE_URL }     from "../constants/urls";
+import { goToAddress }  from "../routes/coordinator";
 
 
 export const signUpData = (body, clear, history) => {
-
   axios
     .post(`${BASE_URL}/signup`, body)
     .then((res) => {
-      console.log(res.data);
-      goToAddress(history);
       localStorage.setItem("token", res.data.token)
-      clear();
+      clear()
+      goToAddress(history)
     })
     .catch((err) => {
       console.log(err.response.data.message);
@@ -30,3 +28,4 @@ export const loginData = (body, clear, history) => {
       console.log(err.response.data.message);
     });
 };
+

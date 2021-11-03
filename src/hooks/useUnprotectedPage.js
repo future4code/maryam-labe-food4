@@ -1,10 +1,10 @@
-import { useHistory } from 'react-router-dom'
-import { useLayoutEffect } from 'react'
-import { goToFeed, goToProfile } from '../routes/coordinator'
+import { useHistory }       from 'react-router-dom';
+import { useLayoutEffect }  from 'react';
+import { goToProfile }      from '../routes/coordinator';
 
 const useUnprotectedPage = () => {
   const history = useHistory()
-  useLayoutEffect(() => {
+  useLayoutEffect(  () => {
     const token = localStorage.getItem('token')
     if (token) {
       goToProfile(history)

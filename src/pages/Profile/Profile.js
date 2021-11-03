@@ -1,25 +1,27 @@
 import { EdditButton, InfosOrders, InfosAdress, InfosPerson, Body, History } from "./styled"
 import React, { useContext, useEffect } from "react"
 import { GlobalContext } from "../../contexts/GlobalContext";
-import useProtectedPage from "../../hooks/useProtectedPage"
+import useProtectedPage from "../../hooks/useProtectedPage";
+import useProfile       from '../../hooks/useProfile';
 
 
 const Profile = () => {
   const token = localStorage.getItem("token")
-  const { getFullAddress, userInfos, getProfile, userAddress, getOrdersHistory, ordersHistory } = useContext(GlobalContext);
+  const { getFullAddress, userInfos, userAddress, getOrdersHistory, ordersHistory } = useContext(GlobalContext);
+  
+  const perfil= useProfile(token)
 
   useEffect(() => {
     getFullAddress()
-    getProfile()
     getOrdersHistory()
-  }, [token])
+  }, [])
 
   return (
     <Body>
       <InfosPerson>
-        <p>{userInfos && userInfos.name}</p>
-        <p>{userInfos && userInfos.email}</p>
-        <p>{userInfos && userInfos.cpf}</p>
+        <p>{perfil && perfil.name}</p>
+        <p>{perfil && perfil.email}</p>
+        <p>{perfil && perfil.cpf}</p>
         <EdditButton />
       </InfosPerson>
 
