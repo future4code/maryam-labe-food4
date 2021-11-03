@@ -1,19 +1,66 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { GlobalContext } from "./GlobalContext"
 import useForm from "../hooks/useForm"
 import { BASE_URL } from "../constants/urls"
 import axios from "axios"
 import { useHistory } from "react-router"
-import { goToProfile } from "../routes/coordinator"
+import { goToSearch, goToProfile } from "../routes/coordinator"
 
 
 const GlobalState = (props) => {
-    const [form, onChange, clear] = useForm({ street: "", number: "", neighbourhood: "", city: "", state: "", complement: "" })
+    const [form, onChange, clear] = useForm({
+        street: "",
+        number: "",
+        neighbourhood: "",
+        city: "",
+        state: "",
+        complement: "",
+        name: "",
+        email: "",
+        cpf: "",
+    })
+
+
     const [userInfos, setUserInfos] = useState({})
     const [userAddress, setUserAddress] = useState({})
     const [ordersHistory, setOrdersHistory] = useState([])
     const token = localStorage.getItem("token")
     const history = useHistory()
+
+    // Requisição para pegar alterar o perfil:
+
+    const updateProfile = () => {
+
+        const body = {
+            name: form.name,
+            email: form.email,
+            cpf: form.cpf,
+        }
+
+        axios.put(`${BASE_URL}/profile`, body, {
+            headers: {
+                auth: token,
+            }
+        })
+            .then((response) => {
+                setUserInfos({
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    cpf: response.data.user.cpf,
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const onSendUpdateProfileForm = (event, history) => {
+        event.preventDefault()
+        clear()
+        updateProfile()
+        goToProfile(history)
+        console.log(`FOOOOOOOOOI`)
+    }
 
     // Requisição para pegar histórico de ordens:
 
@@ -78,7 +125,6 @@ const GlobalState = (props) => {
                     city: response.data.address.city,
                     state: response.data.address.state
                 })
-                console.log(`DEU CERTO o getFullAddress `)
             })
             .catch((error) => {
                 console.log(error)
@@ -118,7 +164,7 @@ const GlobalState = (props) => {
         clear()
         putAddAddress()
         getFullAddress()
-        goToProfile(history)
+        goToSearch(history)
     }
 
     return (
@@ -132,7 +178,8 @@ const GlobalState = (props) => {
             getProfile,
             userAddress,
             getOrdersHistory,
-            ordersHistory
+            ordersHistory,
+            onSendUpdateProfileForm,
         }}>
             {props.children}
         </GlobalContext.Provider>
