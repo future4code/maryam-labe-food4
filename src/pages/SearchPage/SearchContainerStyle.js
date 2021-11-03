@@ -8,11 +8,11 @@ export const SearchContainerStyle = styled.div`
   height: 100%;
   width: 100%;
   input {
-    width: 85%;
-    height: 5vh;
-    /* min-height: 50px; */
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 90%;
+    height: 5%;
     margin: 12px 0;
-    /* background: url('magnifyingGlass.png') no-repeat; */
     padding-left: 30px;
     border-width: 1px;
     border-color: #d0cbcb;
@@ -23,12 +23,13 @@ export const SearchContainerStyle = styled.div`
   }
 `;
 export const RestauranteContainer = styled.div`
+box-sizing: border-box;
 cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 10%;
-  width: 85%;
+  height: 25%;
+  width: 90%;
   min-height: auto;
   min-width: auto;
   font-size: 80%;
@@ -42,11 +43,11 @@ cursor: pointer;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    height: 10%;
+    height: 20%;
     width: 100%;
     margin: 0;
     color: #FF7F50;
-    padding: 0 0 0 5%;
+    padding: 3% 0 0 5%;
   }
   img {
     height: 60%;
@@ -62,12 +63,12 @@ cursor: pointer;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 30%;
+    height: 20%;
     width: 100%;
     padding-bottom: 3%;
     p {
       height: 100%;
-      width: 30%;
+      width: 20%;
       margin: 0;
       padding: 0 0 0 5%;
       color: #aba6a6;

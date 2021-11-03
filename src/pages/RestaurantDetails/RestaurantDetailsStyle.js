@@ -12,22 +12,31 @@ export const RestaurantDetailsStyle = styled.div`
     min-width: 50px;
     min-height: 50px;
   }
+  h2 {
+    width: 85%;
+    height: 8%;
+    padding-bottom: 2%;
+    font-size: 80%;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #202124;
+  }
 `;
 
 export const RestauranteContainer = styled.div`
-  cursor: pointer;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 10%;
+  height: 30%;
   width: 85%;
   min-height: auto;
   min-width: auto;
   font-size: 80%;
-  margin-bottom: 12px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   margin-top: 5%;
+  margin-bottom: 2%;
   h3 {
     box-sizing: border-box;
     display: flex;
@@ -38,7 +47,7 @@ export const RestauranteContainer = styled.div`
     color: #ff7f50;
   }
   img {
-    height: 30%;
+    height: 50%;
     width: 100%;
     object-fit: initial;
     border-top-left-radius: 8px;
@@ -53,7 +62,7 @@ export const RestauranteContainer = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    height: 30%;
+    height: 10%;
     width: 100%;
     p {
       height: 100%;
@@ -69,22 +78,12 @@ export const RestauranteContainer = styled.div`
     }
   }
   p {
-      /* height: 10%; */
-      box-sizing: border-box;
-      width: 100%;
-      margin: 0;
-      color: #aba6a6;
-      font-weight: 600;
-      /* :nth-child(2) {
-        width: 30%;
-        padding: 0 5% 0 0;
-        text-align: right;
-      } */
-      :last-child{
-    padding-bottom: 3%;
-
-      }
-    }
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    color: #aba6a6;
+    font-weight: 600;
+  }
 `;
 
 export const ElementContainer = styled.div`
@@ -102,44 +101,85 @@ export const ElementContainer = styled.div`
   border-style: solid;
   margin-bottom: 12px;
   border-radius: 8px;
-  overflow: hidden;
+  div > span {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 30%;
+    min-width: initial;
+    min-height: initial;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  div > span:nth-child(2) {
+    width: 25%;
+    height: 30%;
+    min-height: initial;
+    bottom: 0;
+    right: 0;
+    top: initial;
+    border-style: solid;
+    border-width: 1px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: initial;
+    border-top-right-radius: initial;
+  }
   div {
     width: 30%;
     height: 100%;
     flex-shrink: 0;
+    overflow: hidden;
     img {
-    height: 100%;
-    width: 100%;
-    border-width: 1px;
-    border-color: #d0cbcb;
-    border-style: solid;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+      height: 100%;
+      width: 100%;
+      border-width: 1px;
+      border-color: #d0cbcb;
+      border-style: solid;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
   }
 
-    :nth-child(2){
+  div:nth-child(2) {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    /* height: 30%; */
     width: 70%;
-    padding: 2% 4%;
+    padding: 4% 4%;
     h3 {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: 0;
-    color: #ff7f50;
-    }
-    p {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
       width: 100%;
+      height: 30%;
       margin: 0;
-      color: #aba6a6;
-      font-weight: 600;
+      color: #ff7f50;
     }
   }
+  div:nth-child(2) > p {
+    width: 100%;
+    height: 50%;
+    margin: 0;
+    color: #aba6a6;
+    font-weight: 600;
+  }
+  div:nth-child(2) > p:nth-child(3) {
+    height: 20%;
+    color: black;
+    font-weight: 600;
+  }
+  div:nth-child(3) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
 `;

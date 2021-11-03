@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  height: 7vh;
+  height: 5%;
   width: 100%;
   padding: 4px 12px;
   border-width: 0 0 1px 0;
@@ -15,8 +15,8 @@ export const HeaderContainer = styled.div`
   overflow: hidden;
   img {
     cursor: pointer;
-    height: 80%;
-    width: 10%;
+    height: 60%;
+    width: 5%;
   }
   h3 {
     display: flex;
@@ -27,6 +27,6 @@ export const HeaderContainer = styled.div`
     width: 80%;
     font-size: 80%;
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
   }
 `;

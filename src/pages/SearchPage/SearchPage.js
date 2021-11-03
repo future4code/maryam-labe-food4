@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Header from "../../component/Header/Header";
 import {SearchContainerStyle, RestauranteContainer} from './SearchContainerStyle';
 import { useForm } from '../../hooks/Hooks';
-import { useHistory, useParams } from "react-router-dom";
+// import { useHistory, useParams } from "react-router-dom";
 
 const SearchPage = () => {
 
-    const history = useHistory();
-    const pathParams = useParams();
+    // const history = useHistory();
+    /* const pathParams = useParams();*/
 
-    const {form, inputChange, cleanFields} = useForm({
+    const {form, inputChange} = useForm({
         searchInput: '',
     })
     const [foundRestaurants, setFoundRestaurants] = useState([])
@@ -118,24 +118,25 @@ const SearchPage = () => {
             ]
     )
 
-    const [choosenRestaurant, setChoosenRestaurant] = useState([])
+    // const [choosenRestaurant, setChoosenRestaurant] = useState([])
 
-    const goToDetails = (restaurant) => {
-        setChoosenRestaurant()
-        history.push()
-    }
+    // const goToDetails = (restaurant) => {
+    //     setChoosenRestaurant()
+    //     history.push()
+    // }
 
         const restaurants = exampleOfList.filter((restaurant)=>{
             return(
                 restaurant.name.toLowerCase().includes(form.searchInput.toLowerCase())
             )
         }).map((restaurant) =>{
-            console.log(restaurant, 'teste')
         return(
             <RestauranteContainer 
-            onClick={goToDetails()}
+            // onClick={goToDetails()}
             key={restaurant.id}>
-            <img src={restaurant.logoUrl}/>
+            <img 
+            alt='Restaurant'
+            src={restaurant.logoUrl}/>
             <h3>{restaurant.name}</h3>
             <div>
                 <p>{restaurant.deliveryTime} min</p>
@@ -158,11 +159,12 @@ const SearchPage = () => {
             name="searchInput"
             value={form.searchInput}
             title="Insert the name of a restaurant"
-            onChange={inputChange}
+            onChange={() => inputChange()}
             placeholder='Restaurants'
             required
             />
             { foundRestaurants ? (restaurants.length > 0 ? (restaurants) : (<p>Não econtramos :(</p>)) : (<p>Busque pelo nome dos restaurantes</p>)}
+            {console.log('render')}
         </SearchContainerStyle>
         </>
     )

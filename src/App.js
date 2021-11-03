@@ -6,29 +6,29 @@ import RestaurantDetails from './pages/RestaurantDetails/RestaurantDetails'
 const GlobalStyle = createGlobalStyle`
 body{
   box-sizing: border-box;
-  width: 100vw;
-  min-height: 100vh;
-  /* height: 100vh; */
-  margin: 0;
+  display: flex;
+  justify-content: center;
   background-color: #ffffff;
+  margin: 0;
   font-family: "SulSans", Helvetica, sans-serif;
   font-size: 1em;
   font-weight: 500;
-  line-height: 1.8;
 }
 div{
   box-sizing: border-box;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
+  max-width: 400px;
+  flex-shrink: 0;
 }
 `;
 
 const App = () => {
   return (
-    <div>
+    <>
       <GlobalStyle />
-      <RestaurantDetails/>
-    </div>
+      <SearchPage/>
+    </>
   );
 }
 
