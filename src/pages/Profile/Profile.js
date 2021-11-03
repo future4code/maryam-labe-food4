@@ -1,7 +1,8 @@
-import { EdditButton, InfosOrders, InfosAdress, InfosPerson, Body, History } from "./styled"
+import { ProfileBox, MiddleContainer, EdditButton, InfosOrders, InfosAdress, InfosPerson, Body, History, Infos, TextInfos, MiddleBox, EachHistoryCardProfile } from "./styled"
 import React, { useContext, useEffect } from "react"
 import { GlobalContext } from "../../contexts/GlobalContext";
 import useProtectedPage from "../../hooks/useProtectedPage"
+import ImageEdit from "../../assets/edit.svg"
 
 
 const Profile = () => {
@@ -14,19 +15,38 @@ const Profile = () => {
     getOrdersHistory()
   }, [token])
 
+  console.log(ordersHistory)
+
   return (
     <Body>
+      <ProfileBox>
+        <p>Meu Perfil</p>
+        {/* <hr /> */}
+      </ProfileBox>
       <InfosPerson>
-        <p>{userInfos && userInfos.name}</p>
-        <p>{userInfos && userInfos.email}</p>
-        <p>{userInfos && userInfos.cpf}</p>
-        <EdditButton />
+        <Infos>
+
+          <p>{userInfos && userInfos.name}</p>
+          <p>{userInfos && userInfos.email}</p>
+          <p>{userInfos && userInfos.cpf}</p>
+
+        </Infos>
+
+        <EdditButton alt={ImageEdit} src={ImageEdit} />
       </InfosPerson>
 
-      <InfosAdress>
-        <p>Endereço cadastrado</p>
-        <p>{userAddress && userAddress.street}, {userAddress && userAddress.number} - {userAddress && userAddress.neighbourhood}</p>
-      </InfosAdress>
+
+      <MiddleBox>
+        <MiddleContainer>
+          <InfosAdress>
+            <h4>Endereço cadastrado</h4>
+            <p>{userAddress && userAddress.street}, {userAddress && userAddress.number} - {userAddress && userAddress.neighbourhood}</p>
+          </InfosAdress>
+
+          <EdditButton alt={ImageEdit} src={ImageEdit} />
+        </MiddleContainer>
+      </MiddleBox>
+
 
       <History>
         <p>Histórico de pedidos</p>
@@ -34,14 +54,22 @@ const Profile = () => {
       </History>
 
       <InfosOrders>
-        <div>
-          <p>Bullguer Vila Madalena</p>
-          <p>23 outubro 2019</p>
-          <p>SUBTOTAL R$89,00</p>
-        </div>
+        {ordersHistory && ordersHistory.map((item) => {
+          return (
+            <EachHistoryCardProfile key={item.createdAt}>
+              <p>{item.restaurantName} </p>
+              <h6>{item.createdAt}</h6>
+              <h4>SUBTOTAL R$ {(item.totalPrice).toFixed(2)}</h4>
+            </EachHistoryCardProfile>
+          )
+        })
+
+        }
+
+
       </InfosOrders>
 
-    </Body>
+    </Body >
   )
 }
 

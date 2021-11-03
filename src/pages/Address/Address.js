@@ -112,7 +112,8 @@ const Address = () => {
                     marginBottom: 1.5,
                 }}
             />
-            {/* <Button
+            <Button
+            type={'submit'}
                 sx={{
                     width: '93%',
                     marginBottom: 1.5,
@@ -120,8 +121,7 @@ const Address = () => {
                 variant="contained">
                 Salvar
 
-            </Button> */}
-            <button>Salvar</button>
+            </Button>
 
         </Body>
     )
