@@ -13,3 +13,7 @@ export const goToSignUp = (history) => {
 // export const goToProfile = (history) => {
 //   history.push("/profile");
 // };
+
+export const goToCartPage = (history) => {
+  history.push("/cartPage")
+}

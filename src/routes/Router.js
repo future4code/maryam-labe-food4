@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import CartPage from "../pages/Cart/CartPage";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 
@@ -22,6 +23,10 @@ const Router = () => {
         <Route exact path="/profile">
           <Profile />
         </Route> */}
+
+        <Route exact path="/cartPage">
+          <CartPage />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
