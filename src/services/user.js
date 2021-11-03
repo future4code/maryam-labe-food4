@@ -10,6 +10,7 @@ export const signUpData = (body, clear, history) => {
     .then((res) => {
       console.log(res.data);
       goToAddress(history);
+      localStorage.setItem("token", res.data.token)
       clear();
     })
     .catch((err) => {
@@ -23,6 +24,7 @@ export const loginData = (body, clear, history) => {
     .then((res) => {
       console.log(res.data);
       clear();
+      localStorage.setItem("token", res.data.token)
     })
     .catch((err) => {
       console.log(err.response.data.message);

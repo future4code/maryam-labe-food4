@@ -2,75 +2,125 @@ import React, { useContext } from "react"
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { Body } from './styled';
 import { useHistory } from "react-router-dom"
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import useProtectedPage from "../../hooks/useProtectedPage"
 
 
 const Address = () => {
+    useProtectedPage()
     const { onSendAddressForm, form, onChange } = useContext(GlobalContext);
     const history = useHistory()
 
     return (
         <Body onSubmit={(event) => onSendAddressForm(event, history)}>
-            <input
+            <p>Meu endereço</p>
+            <TextField
                 placeholder={"Rua/Av"}
                 name={"street"}
                 value={form.street}
                 onChange={onChange}
                 required
                 type={"text"}
-            // title={`Nome de usuário deve possuir no mínimo 3 caracteres`}
-            // pattern='[0-9 A-Z a-z áàâãéèêíïóôõöúçñ]{3,}'
+                label="Logradouro"
+                InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                }}
+                sx={{
+                    width: '93%',
+                    marginBottom: 1.5,
+                }}
             />
-            <input
+            <TextField
                 placeholder={"Número"}
                 name={"number"}
                 value={form.number}
                 onChange={onChange}
                 required
                 type={"number"}
-            // title={`Nome de usuário deve possuir no mínimo 3 caracteres`}
-            // pattern='[0-9 A-Z a-z áàâãéèêíïóôõöúçñ]{3,}'
+                label="Número"
+                InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                }}
+                sx={{
+                    width: '93%',
+                    marginBottom: 1.5,
+                }}
             />
-            <input
+            <TextField
                 placeholder={"Apto./Bloco"}
                 name={"complement"}
                 value={form.complement}
                 onChange={onChange}
                 required
                 type={"text"}
-            // title={`Nome de usuário deve possuir no mínimo 3 caracteres`}
-            // pattern='[0-9 A-Z a-z áàâãéèêíïóôõöúçñ]{3,}'
+                label="Apto./Bloco"
+                InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                }}
+                sx={{
+                    width: '93%',
+                    marginBottom: 1.5,
+                }}
             />
-            <input
+            <TextField
                 placeholder={"Bairro"}
                 name={"neighbourhood"}
                 value={form.neighbourhood}
                 onChange={onChange}
                 required
                 type={"text"}
-            // title={`Nome de usuário deve possuir no mínimo 3 caracteres`}
-            // pattern='[0-9 A-Z a-z áàâãéèêíïóôõöúçñ]{3,}'
+                label="Bairro"
+                InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                }}
+                sx={{
+                    width: '93%',
+                    marginBottom: 1.5,
+                }}
             />
-            <input
+            <TextField
                 placeholder={"Cidade"}
                 name={"city"}
                 value={form.city}
                 onChange={onChange}
                 required
                 type={"text"}
-            // title={`Nome de usuário deve possuir no mínimo 3 caracteres`}
-            // pattern='[0-9 A-Z a-z áàâãéèêíïóôõöúçñ]{3,}'
+                label="Cidade"
+                InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                }}
+                sx={{
+                    width: '93%',
+                    marginBottom: 1.5,
+                }}
             />
-            <input
+            <TextField
                 placeholder={"Estado"}
                 name={"state"}
                 value={form.state}
                 onChange={onChange}
                 required
                 type={"text"}
-            // title={`Nome de usuário deve possuir no mínimo 3 caracteres`}
-            // pattern='[0-9 A-Z a-z áàâãéèêíïóôõöúçñ]{3,}'
+                label="Estado"
+                InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                }}
+                sx={{
+                    width: '93%',
+                    marginBottom: 1.5,
+                }}
             />
+            {/* <Button
+                sx={{
+                    width: '93%',
+                    marginBottom: 1.5,
+                }}
+                variant="contained">
+                Salvar
 
+            </Button> */}
             <button>Salvar</button>
 
         </Body>
