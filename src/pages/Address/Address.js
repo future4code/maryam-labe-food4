@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import useProtectedPage from "../../hooks/useProtectedPage"
+import Header from "../../components/Header/Header";
 
 
 const Address = () => {
@@ -15,7 +16,10 @@ const Address = () => {
 
     return (
         <Body onSubmit={(event) => onSendAddressForm(event, history)}>
-            <p>Meu endereço</p>
+            
+            <Header title="Endereço" />
+            <br />
+
             <TextField
                 placeholder={"Rua/Av"}
                 name={"street"}
@@ -112,7 +116,8 @@ const Address = () => {
                     marginBottom: 1.5,
                 }}
             />
-            {/* <Button
+            <Button
+            type={'submit'}
                 sx={{
                     width: '93%',
                     marginBottom: 1.5,
@@ -120,8 +125,7 @@ const Address = () => {
                 variant="contained">
                 Salvar
 
-            </Button> */}
-            <button>Salvar</button>
+            </Button>
 
         </Body>
     )

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {goToLogin}    from "../../routes/coordinator";
+import {goToSearch}    from "../../routes/coordinator";
 import {goToProfile}  from "../../routes/coordinator";
 import {goToCart}     from "../../routes/coordinator";
 import {goToSearch}   from "../../routes/coordinator";

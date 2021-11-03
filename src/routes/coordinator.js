@@ -19,6 +19,7 @@ export const goToCart = (history) => {
 };
 
 export const goToSearch = (history) => {
+<<<<<<< HEAD
   history.push("/search/");
 };
 
@@ -29,3 +30,12 @@ export const goToDetalhes = (history) => {
 
 
 
+=======
+  history.push("/search");
+};
+
+export const goToChangeProfile = (history) => {
+  history.push("/change-profile");
+};
+
+>>>>>>> origin/master

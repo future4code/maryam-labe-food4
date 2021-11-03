@@ -11,7 +11,7 @@ import Profile           from "../pages/Profile/Profile";
 import Cart              from "../pages/Cart/Cart";
 import RestaurantDetails from "../pages/RestaurantDetails/RestaurantDetails";
 import SearchPage        from "../pages/SearchPage/SearchPage";
-
+import ChangeProfile     from "../pages/ChangeProfile/ChangeProfile"
 
 
 const Router = () => {
@@ -50,6 +50,11 @@ const Router = () => {
 
         <Route exact path="/restaurant/:id?/">
           <RestaurantDetails />
+          <Footer/>
+        </Route>
+
+        <Route exact path="/change-profile">
+          <ChangeProfile />
           <Footer/>
         </Route>
 
