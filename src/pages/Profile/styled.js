@@ -1,10 +1,8 @@
 import styled from "styled-components"
 import { DarkPeach } from "../../constants/colors"
-import ImageEdit from "../../assets/edit.svg"
 
 export const Body = styled.div`
 width: 360px;
-height: 640px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -14,12 +12,17 @@ margin: 0px 0px;
 export const ProfileBox = styled.div`
 width: 100%;
 height: 44px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-bottom: 1px solid lightgray;
+margin-bottom: 20px;
 `
 
 export const MiddleBox = styled.div`
 width: 100%;
 height: 76px;
-background-color: #eeeeee;
+background-color: #eee;
 display: flex;
 align-items: center;
 `
@@ -69,8 +72,9 @@ h4 {
 `
 
 export const InfosOrders = styled.div`
-width: 90%;
+width: 91.5%;
 display: flex;
+margin: 0 auto;
 flex-direction: column;
 align-items: flex-start;
 justify-content: flex-start;
@@ -79,12 +83,20 @@ justify-content: flex-start;
 export const History = styled.div`
 text-align: left;
 width: 90%;
+
+p {
+    margin-bottom: 0px;
+}
+hr {
+    color: black;
+}
 `
 
 export const EachHistoryCardProfile = styled.div`
-width: 328px;
+width: 100%;
 height: 102px;
-margin: 7px 0 0;
+margin-top: 0px;
+margin-bottom: 10px;
 padding: 16px;
 border-radius: 8px;
 border: solid 1px #b8b8b8;

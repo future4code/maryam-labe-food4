@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from "react"
+import { GlobalContext } from "../../contexts/GlobalContext";
 import Header from "../../components/Header/Header";
 import {SearchContainerStyle, RestauranteContainer} from './SearchContainerStyle';
 import { useForm } from '../../hooks/Hooks';

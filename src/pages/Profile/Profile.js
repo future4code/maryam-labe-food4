@@ -3,9 +3,12 @@ import React, { useContext, useEffect } from "react"
 import { GlobalContext } from "../../contexts/GlobalContext";
 import useProtectedPage from "../../hooks/useProtectedPage"
 import ImageEdit from "../../assets/edit.svg"
-
+import { goToProfile, goToAddress } from "../../routes/coordinator"
+import { useHistory } from "react-router"
 
 const Profile = () => {
+  useProtectedPage()
+  const history = useHistory()
   const token = localStorage.getItem("token")
   const { getFullAddress, userInfos, getProfile, userAddress, getOrdersHistory, ordersHistory } = useContext(GlobalContext);
 
@@ -13,15 +16,22 @@ const Profile = () => {
     getFullAddress()
     getProfile()
     getOrdersHistory()
-  }, [token])
+  }, [])
 
   console.log(ordersHistory)
+
+  const convertDate = (timestamp) => {
+    let time = new Date(timestamp)
+    let day = time.getDate().toString().padStart(2, '0')
+    let month = (time.getMonth() + 1).toString().padStart(2, '0')
+    let year = time.getFullYear()
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <Body>
       <ProfileBox>
         <p>Meu Perfil</p>
-        {/* <hr /> */}
       </ProfileBox>
       <InfosPerson>
         <Infos>
@@ -32,7 +42,7 @@ const Profile = () => {
 
         </Infos>
 
-        <EdditButton alt={ImageEdit} src={ImageEdit} />
+        <EdditButton alt={ImageEdit} src={ImageEdit} onClick={() => goToProfile(history)} />
       </InfosPerson>
 
 
@@ -43,7 +53,7 @@ const Profile = () => {
             <p>{userAddress && userAddress.street}, {userAddress && userAddress.number} - {userAddress && userAddress.neighbourhood}</p>
           </InfosAdress>
 
-          <EdditButton alt={ImageEdit} src={ImageEdit} />
+          <EdditButton alt={ImageEdit} src={ImageEdit} onClick={() => goToAddress(history)} />
         </MiddleContainer>
       </MiddleBox>
 
@@ -58,8 +68,8 @@ const Profile = () => {
           return (
             <EachHistoryCardProfile key={item.createdAt}>
               <p>{item.restaurantName} </p>
-              <h6>{item.createdAt}</h6>
-              <h4>SUBTOTAL R$ {(item.totalPrice).toFixed(2)}</h4>
+              <h6>{convertDate(item.createdAt)}</h6>
+              <h4>SUBTOTAL R$ {(item.totalPrice).toFixed(2).replace('.', ',')}</h4>
             </EachHistoryCardProfile>
           )
         })
