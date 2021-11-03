@@ -19,18 +19,6 @@ export const goToCart = (history) => {
 };
 
 export const goToSearch = (history) => {
-<<<<<<< HEAD
-  history.push("/search/");
-};
-
-export const goToDetalhes = (history) => {
-  history.push("/restaurant/:id?/");
-};
-
-
-
-
-=======
   history.push("/search");
 };
 
@@ -38,4 +26,7 @@ export const goToChangeProfile = (history) => {
   history.push("/change-profile");
 };
 
->>>>>>> origin/master
+export const goToHome = (history) => {
+  history.push("/home");
+};
+

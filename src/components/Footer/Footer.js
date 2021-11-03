@@ -3,7 +3,6 @@ import React from 'react';
 import {goToSearch}    from "../../routes/coordinator";
 import {goToProfile}  from "../../routes/coordinator";
 import {goToCart}     from "../../routes/coordinator";
-import {goToSearch}   from "../../routes/coordinator";
 
 import {useHistory}   from 'react-router-dom';
 
