@@ -3,6 +3,7 @@ import { DarkPeach } from "../../constants/colors"
 
 export const Body = styled.div`
 width: 360px;
+min-height: 110vh;
 display: flex;
 flex-direction: column;
 align-items: center;

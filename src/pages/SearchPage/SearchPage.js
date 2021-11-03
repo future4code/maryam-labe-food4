@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
-import { GlobalContext } from "../../contexts/GlobalContext";
+import React, { useEffect, useState } from "react"
 import Header from "../../components/Header/Header";
 import {SearchContainerStyle, RestauranteContainer} from './SearchContainerStyle';
 import { useForm } from '../../hooks/Hooks';
@@ -154,7 +153,7 @@ const SearchPage = () => {
     return (
         <>
         <SearchContainerStyle>
-            <Header/>
+            <Header title="Busca"/>
             <input
             type="text"         
             name="searchInput"
