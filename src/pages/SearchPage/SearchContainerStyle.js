@@ -1,4 +1,39 @@
 import styled from "styled-components";
+import SearchIcon from '@mui/icons-material/Search';
+
+export const SearchWrapper = styled.div`
+ div > input {
+    
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 90%;
+    height: 100%;
+    padding-left: 30px;
+    border-width: 1px;
+    border-color: #d0cbcb;
+    border-style: solid;
+    /* :focus{
+        outline: none;
+    } */
+  }
+  div > img{
+    position: absolute;
+    left: 0;
+    bottom: 10%;
+    width: 20%;
+    height: 80%;
+  }
+  div{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5%;
+    width: 100%;
+    margin: 12px 0;
+  }
+
+`
 
 export const SearchContainerStyle = styled.div`
   display: flex;
@@ -7,21 +42,28 @@ export const SearchContainerStyle = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  input {
-    box-sizing: border-box;
-    flex-shrink: 0;
-    width: 90%;
-    height: 5%;
-    margin: 12px 0;
-    padding-left: 30px;
-    border-width: 1px;
-    border-color: #d0cbcb;
-    border-style: solid;
-    :focus{
-        outline: none;
-    }
-  }
 `;
+
+export const CategroysStyle = styled.div`
+cursor: grab;
+display: flex;
+flex-direction: row;
+height: 10%;
+width: 90%;
+overflow: auto;
+scrollbar-width: none;
+-ms-overflow-style: none;
+-webkit-overflow-scrolling: touch;
+p{
+  cursor: pointer;
+  margin: 0 2%;
+  text-align: center;
+  p:hover{
+    color: #e86e5a;
+  }
+  }
+`
+
 export const RestauranteContainer = styled.div`
 box-sizing: border-box;
 cursor: pointer;

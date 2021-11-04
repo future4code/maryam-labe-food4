@@ -8,7 +8,7 @@ import { goToProfile } from "../routes/coordinator"
 
 
 const GlobalState = (props) => {
-    const [form, onChange, clear] = useForm({ street: "", number: "", neighbourhood: "", city: "", state: "", complement: "" })
+    const [form, onChange, clear] = useForm({ searchInput: '',street: "", number: "", neighbourhood: "", city: "", state: "", complement: "" })
     const [userInfos, setUserInfos] = useState({})
     const [userAddress, setUserAddress] = useState({})
     const [ordersHistory, setOrdersHistory] = useState([])
