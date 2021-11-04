@@ -1,11 +1,10 @@
-import React, { useState } from "react"
-import { GlobalContext } from "./GlobalContext"
-import useForm from "../hooks/useForm"
-import { BASE_URL } from "../constants/urls"
-import axios from "axios"
-import { useHistory } from "react-router"
-import { goToProfile } from "../routes/coordinator"
-
+import React, { useState }          from "react"
+import { GlobalContext }            from "./GlobalContext"
+import useForm                      from "../hooks/useForm"
+import { BASE_URL }                 from "../constants/urls"
+import axios                        from "axios"
+import { useHistory }               from "react-router"
+import { goToSearch, goToProfile }  from "../routes/coordinator"
 
 const GlobalState = (props) => {
 
@@ -33,9 +32,9 @@ const GlobalState = (props) => {
     const updateProfile = (history) => {
         setIsLoading(true)
         const body = {
-            name: form.name,
-            email: form.email,
-            cpf: form.cpf,
+            name:   form.name,
+            email:  form.email,
+            cpf:    form.cpf,
         }
 
         axios.put(`${BASE_URL}/profile`, body, {
@@ -45,9 +44,9 @@ const GlobalState = (props) => {
         })
             .then((response) => {
                 setUserInfos({
-                    name: response.data.user.name,
-                    email: response.data.user.email,
-                    cpf: response.data.user.cpf,
+                    name:   response.data.user.name,
+                    email:  response.data.user.email,
+                    cpf:    response.data.user.cpf,
                 })
                 setIsLoading(false)
                 goToProfile(history)
@@ -62,7 +61,8 @@ const GlobalState = (props) => {
         event.preventDefault()
         clear()
         updateProfile()
-        console.log(`FOOOOOOOOOI`)
+        goToProfile(history)
+
     }
 
     // Requisição para pegar histórico de ordens:
@@ -75,7 +75,6 @@ const GlobalState = (props) => {
             }
         })
             .then((response) => {
-                // console.log(`DEU CERTO o getOrdersHistory:`)
                 setOrdersHistory(response.data.orders)
             })
             .catch((error) => {
@@ -94,14 +93,13 @@ const GlobalState = (props) => {
             }
         })
             .then((response) => {
-                // console.log(`DEU CERTO o getProfile:`)
                 setUserInfos({
-                    id: response.data.user.id,
-                    name: response.data.user.name,
-                    email: response.data.user.email,
-                    cpf: response.data.user.cpf,
+                    id:         response.data.user.id,
+                    name:       response.data.user.name,
+                    email:      response.data.user.email,
+                    cpf:        response.data.user.cpf,
                     hasAddress: response.data.user.hasAddress,
-                    address: response.data.user.address
+                    address:    response.data.user.address
                 })
 
             })
@@ -121,12 +119,12 @@ const GlobalState = (props) => {
         })
             .then((response) => {
                 setUserAddress({
-                    street: response.data.address.street,
-                    number: response.data.address.number,
-                    apartment: response.data.address.apartment,
-                    neighbourhood: response.data.address.neighbourhood,
-                    city: response.data.address.city,
-                    state: response.data.address.state
+                    street:         response.data.address.street,
+                    number:         response.data.address.number,
+                    apartment:      response.data.address.apartment,
+                    neighbourhood:  response.data.address.neighbourhood,
+                    city:           response.data.address.city,
+                    state:          response.data.address.state
                 })
             })
             .catch((error) => {
@@ -154,6 +152,7 @@ const GlobalState = (props) => {
             .then((response) => {
                 localStorage.setItem("token", response.data.token)
                 setIsLoading(false)
+                goToProfile(history)
 
             })
             .catch((error) => {

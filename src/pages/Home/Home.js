@@ -7,13 +7,15 @@ import Typography   from '@mui/material/Typography';
 import Restaurante  from "./Restaurante";
 import InputAdornment   from '@mui/material/InputAdornment';
 import IconButton       from '@mui/material/IconButton';
-
+import useProtectedPage from "../../hooks/useProtectedPage"
 import SearchIcon from '@mui/icons-material/Search';
 
 
 // import { useHistory, useParams } from "react-router-dom";
 
 const Home = () => {
+    useProtectedPage()
+    
 
     // const history = useHistory();
     /* const pathParams = useParams();*/

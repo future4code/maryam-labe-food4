@@ -6,6 +6,7 @@ import {
   ElementContainer,
 } from "./RestaurantDetailsStyle";
 import Header from "../../components/Header/Header";
+import useProtectedPage from "../../hooks/useProtectedPage"
 
 const RestaurantDetails = () => {
   const [id, setId] = useState("1");
@@ -14,6 +15,7 @@ const RestaurantDetails = () => {
   const [category, setCategory] = useState();
   // const [haveTheItem, setHaveTheItem] = useState(true)
   const [quantity, setQuantity] = useState(3);
+  useProtectedPage()
 
   const renderOptions = () => {
     for(let i = 0; i !== 11; i++) {
