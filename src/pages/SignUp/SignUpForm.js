@@ -14,7 +14,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 const SignUpForm = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false)
-
   const [form, onChange, clear] = useForm({
     name: "",
     email: "",
@@ -161,7 +160,6 @@ const SignUpForm = () => {
             type="submit"
             size="large"
           >
-
             {isLoading ? <CircularProgress
               color={"inherit"}
               size={24}

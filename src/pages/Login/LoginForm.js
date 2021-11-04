@@ -16,9 +16,7 @@ const LoginForm = () => {
   useUnprotectedPage();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false)
-
   const [form, onChange, clear] = useForm({ email: "", password: "" });
-
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
