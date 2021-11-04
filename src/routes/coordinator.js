@@ -29,3 +29,7 @@ export const goToChangeProfile = (history) => {
 export const goToHome = (history) => {
   history.push("/home");
 };
+
+export const goToDetails = (history,id) => {
+  history.push(`/restaurant/${id}/`);
+};
