@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/urls";
-import { goToAddress } from "../routes/coordinator";
+import { goToAddress, goToHome, goToProfile } from "../routes/coordinator";
 
 export const signUpData = (body, clear, history) => {
   axios
@@ -8,7 +8,7 @@ export const signUpData = (body, clear, history) => {
     .then((res) => {
       console.log(res.data);
       localStorage.setItem("token", res.data.token);
-      // goToAddress(history);
+      goToProfile(history);
       clear();
     })
     .catch((err) => {
@@ -22,7 +22,11 @@ export const loginData = (body, clear, history) => {
     .then((res) => {
       console.log(res.data);
       localStorage.setItem("token", res.data.token);
-      goToAddress(history);
+      if (res.data.user.hasAddress) {
+        goToHome(history);
+      } else {
+        goToAddress(history);
+      }
       clear();
     })
     .catch((err) => {

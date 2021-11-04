@@ -3,9 +3,10 @@ import Header from "../../components/Header/Header";
 import {SearchContainerStyle, RestauranteContainer} from './SearchContainerStyle';
 import { useForm } from '../../hooks/Hooks';
 // import { useHistory, useParams } from "react-router-dom";
+import useProtectedPage from "../../hooks/useProtectedPage"
 
 const SearchPage = () => {
-
+    useProtectedPage()
     // const history = useHistory();
     /* const pathParams = useParams();*/
 
