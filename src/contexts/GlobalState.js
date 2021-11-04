@@ -24,6 +24,17 @@ const GlobalState = (props) => {
     const [userInfos, setUserInfos] = useState({})
     const [userAddress, setUserAddress] = useState({})
     const [ordersHistory, setOrdersHistory] = useState([])
+    const [carrinho,setCarrinho] = useState([
+        {
+		"categoria":  "Salgado",
+		"description": "Esfiha deliciosa, receita secreta do Habibs.",
+        "id": "fMMfstMTxeos8NWTS4j1",
+        "name": "Bibsfiha frango",
+		"photoUrl": "https://static-images.ifood.com.br/image/upload/f_auto,t_high/pratos/65c38aa8-b094-413d-9a80-ddc256bfcc78/201907031409_66194560.jpg",
+        "price" :   1,
+		"quantity": 10,
+	},])
+
     const token = localStorage.getItem("token")
     const history = useHistory()
 
@@ -176,6 +187,8 @@ const GlobalState = (props) => {
             getOrdersHistory,
             ordersHistory,
             onSendUpdateProfileForm,
+            carrinho,
+            setCarrinho, 
         }}>
             {props.children}
         </GlobalContext.Provider>
