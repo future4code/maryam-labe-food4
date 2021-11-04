@@ -1,11 +1,12 @@
 import { ProfileBox, MiddleContainer, EdditButton, InfosOrders, InfosAdress, InfosPerson, Body, History, Infos, MiddleBox, EachHistoryCardProfile } from "./styled"
 import { goToAddress, goToChangeProfile } from "../../routes/coordinator"
-import React, { useContext, useEffect } from "react"
-import { GlobalContext }      from "../../contexts/GlobalContext";
-import useProtectedPage       from "../../hooks/useProtectedPage"
-import ImageEdit              from "../../assets/edit.svg"
-import { useHistory }         from "react-router";
-import Typography             from '@mui/material/Typography';
+import React, { useContext, useEffect }   from "react"
+import { GlobalContext }                  from "../../contexts/GlobalContext";
+import useProtectedPage                   from "../../hooks/useProtectedPage"
+import ImageEdit                          from "../../assets/edit.svg"
+import { useHistory }                     from "react-router";
+import Typography                         from '@mui/material/Typography';
+import Box                                from '@mui/material/Box';
 
 
 const Profile = () => {
@@ -86,6 +87,7 @@ const Profile = () => {
         }
 
       </InfosOrders>
+        <Box sx={{height:'10vh'}} />
 
     </Body >
   )

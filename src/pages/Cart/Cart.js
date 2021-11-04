@@ -137,8 +137,7 @@ const Cart = () => {
 
                 
                 <Typography  color = "textPrimary" variant="body1"> Forma de pagamento: </Typography>
-                <Box sx={{              border: '1px solid black',
- marginBottom:'3px', width: 'inherit',  height: '1px', border: '1px solid black'}}></Box>
+                <Box sx={{ marginBottom:'3px', width: 'inherit',  height: '1px', border: '1px solid black'}}></Box>
                 
                 <FormControl component="fieldset">
                     <RadioGroup>

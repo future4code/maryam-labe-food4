@@ -1,26 +1,15 @@
-import * as React from 'react';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Badge from '@mui/material/Badge';
-import { styled } from '@mui/material/styles';
+import * as React    from 'react';
+import CardContent   from '@mui/material/CardContent';
+import CardMedia     from '@mui/material/CardMedia';
+import Button        from '@mui/material/Button';
+import Typography    from '@mui/material/Typography';
+import Box           from '@mui/material/Box';
+
 
 
 
 
 const CardCarrinho = () => {
-
-    const StyledBadge = styled(Badge)(({ theme }) => ({
-        '& .MuiBadge-badge': {
-            right: -3,
-            top: 13,
-            border: `2px solid ${theme.palette.background.paper}`,
-            padding: '0 4px',
-            },
-        }));
-
 
 
     return (

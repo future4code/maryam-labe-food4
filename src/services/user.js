@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios        from "axios";
 import { BASE_URL } from "../constants/urls";
-import { goToAddress, goToHome, goToProfile } from "../routes/coordinator";
+import { goToAddress, goToHome } from "../routes/coordinator";
 
 export const signUpData = (body, clear, history, setIsLoading) => {
   setIsLoading(true)
