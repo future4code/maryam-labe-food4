@@ -29,4 +29,3 @@ export const goToChangeProfile = (history) => {
 export const goToHome = (history) => {
   history.push("/home");
 };
-
