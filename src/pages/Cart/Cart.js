@@ -17,7 +17,6 @@ import {useState}       from 'react'
 
 const Cart = () => {
     useProtectedPage()
-
     const [temCarrinho,setCarrinho] = useState(true)
 
 
