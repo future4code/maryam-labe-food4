@@ -30,7 +30,7 @@ const Profile = () => {
 
   return (
     <Body>
-      
+
       <ProfileBox>
         <Typography>Meu Perfil</Typography>
       </ProfileBox>
@@ -48,7 +48,7 @@ const Profile = () => {
           <EdditButton alt="Name" src={ImageEdit} onClick={() => goToChangeProfile(history)} />
         </InfosPerson>
       ) : (
-        <Typography>Carregando...Aguarde</Typography>
+        <Typography><br />Carregando...Aguarde<br /><br /><br /></Typography>
       )}
 
       <MiddleBox>
@@ -72,7 +72,7 @@ const Profile = () => {
 
       <InfosOrders>
 
-        {ordersHistory.lenght === 0 ? (<h4>Você não realizou nenhum pedido</h4>) : (
+        {!ordersHistory.length || ordersHistory.length === 0 ? (<h4>Você não realizou nenhum pedido</h4>) : (
           ordersHistory && ordersHistory.map((item) => {
             return (
               <EachHistoryCardProfile key={item.createdAt}>
@@ -82,7 +82,6 @@ const Profile = () => {
               </EachHistoryCardProfile>
             )
           })
-
         )
         }
 

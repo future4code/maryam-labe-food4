@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { Body } from './styled';
 import { useHistory } from "react-router-dom"
@@ -7,16 +7,17 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import useProtectedPage from "../../hooks/useProtectedPage"
 import Header from "../../components/Header/Header";
+import { CircularProgress } from '@mui/material';
 
 
 const Address = () => {
     useProtectedPage()
-    const { onSendAddressForm, form, onChange } = useContext(GlobalContext);
+    const { onSendAddressForm, form, onChange, isLoading } = useContext(GlobalContext);
     const history = useHistory()
 
     return (
         <Body onSubmit={(event) => onSendAddressForm(event, history)}>
-            
+
             <Header title="Endereço" />
             <br />
 
@@ -117,13 +118,17 @@ const Address = () => {
                 }}
             />
             <Button
-            type={'submit'}
+                type={'submit'}
                 sx={{
                     width: '93%',
                     marginBottom: 1.5,
                 }}
                 variant="contained">
-                Salvar
+
+                {isLoading ? <CircularProgress
+                    color={"inherit"}
+                    size={24}
+                /> : <>Salvar</>}
 
             </Button>
 
