@@ -26,6 +26,7 @@ height: 76px;
 background-color: #eee;
 display: flex;
 align-items: center;
+margin-bottom:16px;
 `
 
 export const MiddleContainer = styled.div`
@@ -47,13 +48,14 @@ width: 91.11%;
 display: flex;
 justify-content: space-between;
 align-items: flex-start;
+margin-bottom: 16px;
 `
 
 export const Infos = styled.div`
 width: 328px;
 display: flex;
 flex-direction: column;
-p {
+Typography: {
     margin-top: -12px
 }
 `
@@ -61,8 +63,10 @@ p {
 export const InfosAdress = styled.div`
 width: 91.11%;
 margin: 0 auto;
+padding-top:16px;
 
-p {
+
+Typography: {
     font-size: 16px;
     margin-top: -15px
 }

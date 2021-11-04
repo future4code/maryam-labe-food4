@@ -12,7 +12,6 @@ import CssBaseline      from "@mui/material/CssBaseline";
 const App = () => {
   return (
     <GlobalState>
-      <div>
 
       <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -22,7 +21,6 @@ const App = () => {
 
       </ThemeProvider>
 
-      </div>
     </GlobalState>
   );
 };

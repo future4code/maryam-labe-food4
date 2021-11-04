@@ -12,6 +12,7 @@ import Cart              from "../pages/Cart/Cart";
 import RestaurantDetails from "../pages/RestaurantDetails/RestaurantDetails";
 import SearchPage        from "../pages/SearchPage/SearchPage";
 import ChangeProfile     from "../pages/ChangeProfile/ChangeProfile"
+import Home              from "../pages/Home/Home";
 
 
 const Router = () => {
@@ -60,6 +61,11 @@ const Router = () => {
 
         <Route exact path="/search/">
           <SearchPage />
+          <Footer/>
+        </Route>
+
+        <Route exact path="/home/">
+          <Home />
           <Footer/>
         </Route>
 
