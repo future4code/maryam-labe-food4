@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useForm from "../../hooks/useForm";
 import { loginData } from "../../services/user";
 import Box from "@mui/material/Box";
@@ -10,10 +10,12 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 import { useHistory } from "react-router";
+import { CircularProgress } from '@mui/material';
 
 const LoginForm = () => {
   useUnprotectedPage();
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false)
 
   const [form, onChange, clear] = useForm({ email: "", password: "" });
 
@@ -24,7 +26,7 @@ const LoginForm = () => {
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    loginData(form, clear, history);
+    loginData(form, clear, history, setIsLoading);
     console.log(form);
   };
 
@@ -91,8 +93,10 @@ const LoginForm = () => {
             type="submit"
             size="large"
           >
-            {" "}
-            Entrar{" "}
+            {isLoading ? <CircularProgress
+              color={"inherit"}
+              size={24}
+            /> : <>Entrar</>}
           </Button>
         </Box>
       </Box>
