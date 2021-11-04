@@ -1,29 +1,32 @@
 import React from "react";
 import useForm from "../../hooks/useForm";
 import { loginData } from "../../services/user";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import useUnprotectedPage from "../../hooks/useUnprotectedPage";
+import { useHistory } from "react-router";
 
 const LoginForm = () => {
+  useUnprotectedPage();
+  const history = useHistory();
+
   const [form, onChange, clear] = useForm({ email: "", password: "" });
 
   const [values, setValues] = React.useState({
-    password: '',
+    password: "",
     showPassword: false,
   });
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    loginData(form, clear);
+    loginData(form, clear, history);
     console.log(form);
   };
-
 
   const handleClickShowPassword = () => {
     setValues({
@@ -32,48 +35,45 @@ const LoginForm = () => {
     });
   };
 
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-
   return (
-
     <form onSubmit={onSubmitForm}>
-
-
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'column'
-      }} >
-
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <TextField
           required
           margin="normal"
-          label='Email'
-          type='email'
+          label="Email"
+          type="email"
           variant="outlined"
-          name={'email'}
+          name={"email"}
           value={form.email}
           onChange={onChange}
         />
 
         <TextField
           required
-          label='Password'
-          type={values.showPassword ? 'text' : 'password'}
+          label="Password"
+          type={values.showPassword ? "text" : "password"}
           variant="outlined"
-          name={'password'}
+          name={"password"}
           value={form.password}
           onChange={onChange}
           InputProps={{
             endAdornment: (
-              <InputAdornment position='end'>
+              <InputAdornment position="end">
                 <IconButton
-                  aria-label='toggle password visibility'
+                  aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}>
+                  onMouseDown={handleMouseDownPassword}
+                >
                   {values.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
@@ -81,15 +81,22 @@ const LoginForm = () => {
           }}
         />
 
-
-        <Box type={'submit'} sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}
+        <Box
+          type={"submit"}
+          sx={{ display: "flex", justifyContent: "center", marginTop: "16px" }}
         >
-          <Button style={{ minWidth: '343px' }} variant='contained' type='submit' size='large'> Entrar </Button>
+          <Button
+            style={{ minWidth: "343px" }}
+            variant="contained"
+            type="submit"
+            size="large"
+          >
+            {" "}
+            Entrar{" "}
+          </Button>
         </Box>
-
       </Box>
     </form>
-
   );
 };
 
