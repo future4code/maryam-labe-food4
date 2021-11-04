@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react"
 import Header                   from "../../components/Header/Header";
 import {RestauranteContainer}   from './SearchContainerStyle';
 import { useForm }              from '../../hooks/Hooks';
-// import { useHistory, useParams } from "react-router-dom";
-import useProtectedPage from "../../hooks/useProtectedPage"
-import Box              from "@mui/material/Box";
+import useProtectedPage         from "../../hooks/useProtectedPage";
 
+import Box              from "@mui/material/Box";
 import TextField        from "@mui/material/TextField";
 import InputAdornment   from "@mui/material/InputAdornment";
 import IconButton       from "@mui/material/IconButton";
 import SearchIcon       from '@mui/icons-material/Search';
 
-import SearchIcon from '@mui/icons-material/Search';
-const SearchPage = () => {
 
 
 const SearchPage = () => {
