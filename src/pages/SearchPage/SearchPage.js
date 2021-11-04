@@ -4,6 +4,7 @@ import {SearchContainerStyle, RestauranteContainer} from './SearchContainerStyle
 import { useForm } from '../../hooks/Hooks';
 // import { useHistory, useParams } from "react-router-dom";
 import useProtectedPage from "../../hooks/useProtectedPage"
+import SearchIcon from '@mui/icons-material/Search';
 
 const SearchPage = () => {
     useProtectedPage()
