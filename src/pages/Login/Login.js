@@ -20,7 +20,6 @@ const Login = () => {
 
     <Box
       sx={{
-        border: '1px solid black',
         display: 'flex',
         marginTop: '3vh',
         flexDirection: 'column',

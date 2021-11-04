@@ -4,10 +4,11 @@ import useForm from "../hooks/useForm"
 import { BASE_URL } from "../constants/urls"
 import axios from "axios"
 import { useHistory } from "react-router"
-import { goToSearch, goToProfile } from "../routes/coordinator"
+import { goToProfile } from "../routes/coordinator"
 
 
 const GlobalState = (props) => {
+
     const [form, onChange, clear] = useForm({
         street: "",
         number: "",
@@ -20,7 +21,7 @@ const GlobalState = (props) => {
         cpf: "",
     })
 
-
+    const [isLoading, setIsLoading] = useState(false)
     const [userInfos, setUserInfos] = useState({})
     const [userAddress, setUserAddress] = useState({})
     const [ordersHistory, setOrdersHistory] = useState([])
@@ -29,8 +30,8 @@ const GlobalState = (props) => {
 
     // Requisição para pegar alterar o perfil:
 
-    const updateProfile = () => {
-
+    const updateProfile = (history) => {
+        setIsLoading(true)
         const body = {
             name: form.name,
             email: form.email,
@@ -48,9 +49,12 @@ const GlobalState = (props) => {
                     email: response.data.user.email,
                     cpf: response.data.user.cpf,
                 })
+                setIsLoading(false)
+                goToProfile(history)
             })
             .catch((error) => {
                 console.log(error)
+                setIsLoading(false)
             })
     }
 
@@ -58,7 +62,6 @@ const GlobalState = (props) => {
         event.preventDefault()
         clear()
         updateProfile()
-        goToProfile(history)
         console.log(`FOOOOOOOOOI`)
     }
 
@@ -134,7 +137,7 @@ const GlobalState = (props) => {
     // Atualização de endereço (tela Address.js);
 
     const putAddAddress = () => {
-
+        setIsLoading(true)
         const body = {
             street: form.street,
             number: form.number,
@@ -150,21 +153,21 @@ const GlobalState = (props) => {
         })
             .then((response) => {
                 localStorage.setItem("token", response.data.token)
-                console.log(`DEU CERTO o putAddAddress `)
-                goToProfile(history)
+                setIsLoading(false)
 
             })
             .catch((error) => {
                 console.log(error)
+                setIsLoading(false)
             })
     }
 
     const onSendAddressForm = (event, history) => {
         event.preventDefault()
-        clear()
         putAddAddress()
         getFullAddress()
-        goToSearch(history)
+        goToProfile(history)
+        clear()
     }
 
     return (
@@ -180,6 +183,10 @@ const GlobalState = (props) => {
             getOrdersHistory,
             ordersHistory,
             onSendUpdateProfileForm,
+            setIsLoading,
+            isLoading,
+            updateProfile,
+            clear,
         }}>
             {props.children}
         </GlobalContext.Provider>
