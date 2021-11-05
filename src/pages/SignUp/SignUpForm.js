@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import useForm from "../../hooks/useForm";
 import { useHistory } from "react-router-dom";
 import { signUpData } from "../../services/user";
-
+import { CircularProgress } from '@mui/material';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -13,7 +13,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const SignUpForm = () => {
   const history = useHistory();
-
+  const [isLoading, setIsLoading] = useState(false)
   const [form, onChange, clear] = useForm({
     name: "",
     email: "",
@@ -40,10 +40,12 @@ const SignUpForm = () => {
 
   const onSubmitForm = (event) => {
     event.preventDefault();
+    setIsLoading(true)
     if (form.password !== form.confirmPassword) {
       alert("As senhas não conferem!");
+      setIsLoading(false)
     } else {
-      signUpData(form, clear, history);
+      signUpData(form, clear, history, setIsLoading);
     }
   };
 
@@ -54,7 +56,7 @@ const SignUpForm = () => {
           display: "flex",
           flexDirection: "column",
           width: "50vw",
-          height: "60vh",
+          height: "70vh",
           alignItems: "center",
           justifyContent: "space-around",
         }}
@@ -63,11 +65,11 @@ const SignUpForm = () => {
           <TextField
             fullWidth
             required
-            label="Nome"
             type="text"
             name={"name"}
             value={form.name}
             onChange={onChange}
+            label="Nome"
           />
         </Box>
 
@@ -158,8 +160,10 @@ const SignUpForm = () => {
             type="submit"
             size="large"
           >
-            {" "}
-            Criar{" "}
+            {isLoading ? <CircularProgress
+              color={"inherit"}
+              size={24}
+            /> : <>Criar</>}
           </Button>
         </Box>
       </Box>

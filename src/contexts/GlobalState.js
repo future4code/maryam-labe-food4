@@ -26,7 +26,7 @@ const GlobalState = (props) => {
   const token = localStorage.getItem("token");
   const history = useHistory();
   const [carrinho, setCarrinho] = useState();
-  const [choosedItem, setChoosedItem] = useState(false)
+  const [choosedItem, setChoosedItem] = useState(false);
   // Requisição para pegar alterar o perfil:
 
   const updateProfile = () => {
@@ -205,6 +205,21 @@ const GlobalState = (props) => {
         getOrdersHistory,
         ordersHistory,
         onSendUpdateProfileForm,
+        carrinho,
+        setCarrinho,
+        updateProfile,
+        clear,
+        onSendAddressForm,
+        onChange,
+        form,
+        userInfos,
+        setUserInfos,
+        getFullAddress,
+        getProfile,
+        userAddress,
+        getOrdersHistory,
+        ordersHistory,
+        onSendUpdateProfileForm,
         foundRestaurants,
         setFoundRestaurants,
         choosedCategory,
@@ -220,9 +235,9 @@ const GlobalState = (props) => {
         setNewArray,
         category,
         setCategory,
-        carrinho, 
+        carrinho,
         setCarrinho,
-        choosedItem, 
+        choosedItem,
         setChoosedItem,
       }}
     >

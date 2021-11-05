@@ -1,43 +1,54 @@
 import React from 'react';
-
-import {goToSearch}    from "../../routes/coordinator";
-import {goToProfile}  from "../../routes/coordinator";
-import {goToCart}     from "../../routes/coordinator";
-
-import {useHistory}   from 'react-router-dom';
-
-import BottomNavigation       from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import HomeIcon               from '@mui/icons-material/Home';
-import ShoppingCartIcon       from '@mui/icons-material/ShoppingCart';
-import PersonIcon             from '@mui/icons-material/Person';
-import Paper                  from '@mui/material/Paper';
-import Box                    from '@mui/material/Box';
-
-
-
+import { goToProfile } from "../../routes/coordinator";
+import { goToCart, goToHome } from "../../routes/coordinator";
+import { useHistory } from 'react-router-dom';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PersonIcon from '@mui/icons-material/Person';
+import Paper from '@mui/material/Paper';
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+// import HomeIcon from "@mui/icons-material/Home";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// import PersonIcon from "@mui/icons-material/Person";
+// import Paper from "@mui/material/Paper";
 
 
 const Footer = () => {
-    const [value, setValue] = React.useState(0);
-    const history = useHistory()
-    return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-        <BottomNavigation
+  const [value, setValue] = React.useState(0);
+  const history = useHistory()
+  return (
+    <Paper sx={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0
+    }}
+      elevation={3}
+    >
+
+      <BottomNavigation
         showLabels
         value={value}
         onChange={(event, newValue) => {
-            setValue(newValue);
+          setValue(newValue);
         }}
-        >
-
-            <BottomNavigationAction  onClick={() =>goToSearch(history)  }  icon={<HomeIcon />} />
-            <BottomNavigationAction  onClick={() =>goToCart(history)   }  icon={<ShoppingCartIcon />} />
-            <BottomNavigationAction  onClick={() =>goToProfile(history)}  icon={<PersonIcon />} />
-
-        </BottomNavigation>
+      >
+        <BottomNavigationAction
+          onClick={() => goToHome(history)}
+          icon={<HomeIcon />}
+        />
+        <BottomNavigationAction
+          onClick={() => goToCart(history)}
+          icon={<ShoppingCartIcon />}
+        />
+        <BottomNavigationAction
+          onClick={() => goToProfile(history)}
+          icon={<PersonIcon />}
+        />
+      </BottomNavigation>
     </Paper>
-    )
-}
+  );
+};
 
 export default Footer;

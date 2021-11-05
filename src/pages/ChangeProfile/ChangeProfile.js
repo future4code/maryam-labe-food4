@@ -7,11 +7,12 @@ import React, { useContext } from "react"
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { useHistory } from "react-router"
 import Header from "../../components/Header/Header"
-
+import { CircularProgress } from '@mui/material';
+import { goToProfile } from "../../routes/coordinator"
 
 const ChangeProfile = () => {
     useProtectedPage()
-    const { form, onChange, onSendUpdateProfileForm } = useContext(GlobalContext);
+    const { form, onChange, clear, isLoading, updateProfile, setIsLoading, onSendUpdateProfileForm } = useContext(GlobalContext);
     const history = useHistory()
 
 
@@ -79,7 +80,11 @@ const ChangeProfile = () => {
                     marginBottom: 1.5,
                 }}
                 variant="contained">
-                Salvar
+
+                {isLoading ? <CircularProgress
+                    color={"inherit"}
+                    size={24}
+                /> : <>Salvar</>}
 
             </Button>
         </Body >
