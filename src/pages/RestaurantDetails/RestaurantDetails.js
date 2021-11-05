@@ -10,11 +10,13 @@ import useProtectedPage from "../../hooks/useProtectedPage"
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { useParams } from "react-router";
 import DropDownArrow from '../../img/DropDownArrow.png'
+import zIndex from "@mui/material/styles/zIndex";
 
 
 
 const RestaurantDetails = () => {
-  const {id, setId,choosedRestaurant, setChoosedRestaurant, newArray, setNewArray, category, setCategory, quantity, setQuantity, carrinho, setCarrinho } = useContext(GlobalContext)
+  const {id, setId,choosedRestaurant, setChoosedRestaurant, newArray, setNewArray, category, setCategory, quantity, setQuantity, carrinho, setCarrinho, choosedItem, 
+    setChoosedItem } = useContext(GlobalContext)
 
   useProtectedPage()
   const pathParams = useParams()
@@ -59,7 +61,7 @@ const RestaurantDetails = () => {
           <h2>{categoryName}</h2>
           {newArray[categoryName].map((item) => {
             return (
-              <ElementContainer onclick={console.log(item)} key={item.id}>
+              <ElementContainer key={item.id}>
                 <div>
                   <img alt="Food" src={item.photoUrl} />
                 </div>
@@ -80,7 +82,8 @@ const RestaurantDetails = () => {
                     </span>
                   ) : (
                     <span 
-                    onclick={() => addItensToCart(item)}
+                    onclick={(event) => {event.stopPropagation(); console.log('click');setChoosedItem(item)}}
+                    style={{zIndex: '20'}}
                     >adicionar</span>
                   )}
                 </div>
@@ -146,16 +149,19 @@ const RestaurantDetails = () => {
       )}
       {choosedRestaurant && newArray && category ? renderCategorys() : null}
       {console.log("render")}
-      <aside id="popup">
+      {choosedItem ? (
+                    <aside id="popup">
         <div>
         <p>Selecione a quantidade desejada</p>
         <select >
           <img src={DropDownArrow}/>
           {renderOptions()}
         </select>
-        <button>ADICIONAR AO CARRINHO</button>
+        <button onclick={() => addItensToCart()}>ADICIONAR AO CARRINHO</button>
         </div>
       </aside>
+      ) : ('')} 
+      
     </RestaurantDetailsStyle>
   );
 };

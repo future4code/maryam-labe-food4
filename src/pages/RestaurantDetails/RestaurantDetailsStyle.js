@@ -18,6 +18,7 @@ export const RestaurantDetailsStyle = styled.div`
     height: 100%;
     background: black;
     background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
   }
   aside > div {
     position: relative;
@@ -29,6 +30,7 @@ export const RestaurantDetailsStyle = styled.div`
     height: 40%;
     background-color: white;
     opacity: 1;
+    z-index: 3;
   }
   aside > div > button {
     cursor: pointer;
@@ -36,6 +38,7 @@ export const RestaurantDetailsStyle = styled.div`
     border: none;
     width: 50%;
     height: 30%;
+    color: blue;
     z-index: 2;
   }
 
@@ -54,7 +57,7 @@ export const RestaurantDetailsStyle = styled.div`
     /* min-height: 500px; */
     background-color: black;
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-    /* opacity: 1; */
+    opacity: 1;
     color: black;
    }
 
@@ -208,6 +211,7 @@ export const ElementContainer = styled.div`
     border-top-right-radius: 8px;
   }
   div > span:nth-child(2) {
+    cursor: pointer;
     width: 25%;
     height: 30%;
     min-height: initial;
@@ -222,12 +226,17 @@ export const ElementContainer = styled.div`
     border-top-left-radius: 8px;
     border-bottom-left-radius: initial;
     border-top-right-radius: initial;
+    z-index: 20;
+    :hover{
+      background-color: black;
+    }
   }
   div {
     width: 30%;
     height: 100%;
     flex-shrink: 0;
     overflow: hidden;
+    z-index: 1;
     img {
       height: 100%;
       width: 100%;
