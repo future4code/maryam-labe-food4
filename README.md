@@ -12,6 +12,7 @@ Esse projeto simula um app de delivery de refeições, semelhante ao Ifood, Rapp
 
 
 # Nesse projeto, utilizamos: <br/>
+[V] Javascript <br/>
 [V] React <br/>
 [V] Styled-Components <br/>
 [V] Material-UI <br/>
