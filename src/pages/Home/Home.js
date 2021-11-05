@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import Header from "../../components/Header/Header";
 import {
@@ -6,23 +6,41 @@ import {
   RestauranteContainer,
   CategroysStyle,
   SearchWrapper,
+  HomeStyle,
 } from "./HomeStyle";
+
+import {SearchIcon} from "../../img/searchIcon.png";
+
 // import { useHistory, useParams } from "react-router-dom";
 import useProtectedPage from "../../hooks/useProtectedPage";
 
-import Box        from "@mui/material/Box";
-import SearchIcon from "@mui/icons-material/Search";
-import Typography from '@mui/material/Typography';
-import TextField  from "@mui/material/TextField";
+
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import { useHistory } from "react-router";
+import searchIcon from '../../img/searchIcon.png'
 
 
 const Home = () => {
+
+  const history = useHistory()
+
   useProtectedPage();
+
+  useLayoutEffect(() => {
+    getActiveOrder()
+    setTimeout(() => {
+      setActiveOrder('')
+    }, 3000);
+  }, []);
 
   // const history = useHistory();
   /* const pathParams = useParams();*/
 
   const {
+    getActiveOrder,
+    setActiveOrder,
     form,
     onChange,
     getListOfRestaurants,
@@ -143,6 +161,7 @@ const Home = () => {
         <RestauranteContainer
           // onClick={goToDetails()}
           key={restaurant.id}
+          onClick={() => history.push(`/restaurant/${restaurant.id}/`)}
         >
           <img alt="Restaurant" src={restaurant.logoUrl} />
           <h3>{restaurant.name}</h3>
@@ -155,32 +174,22 @@ const Home = () => {
     });
   
   return (
-    <>
       <SearchContainerStyle
         onClick={() => {
-          console.log(foundRestaurants);
           setSerachInputOnFocus(false);
         }}
       >
         <Header />
 
-        <Box
-        sx={{
-          display:        "flex",
-          flexDirection:  "column",
-          marginTop:      '2vh',
-          marginBottom:   '2vh',
-        }}
-        >
+        <SearchWrapper>
+          <div>
+          <input
+            type="text"
+            name="searchInput"
+            value={form.searchInput}
+            title="Insert the name of a restaurant"
+            onChange={(event) => {
 
-          <TextField
-          label="Restaurantes"
-          type="text"
-          variant="outlined"
-          name={"searchInput"}
-          placeholder={'Busca'}
-          value={form.searchInput}
-          onChange={(event) => {
               setSerachInputOnFocus(!false);
               onChange(event);
             }}
@@ -188,14 +197,14 @@ const Home = () => {
               event.stopPropagation();
               setSerachInputOnFocus(true);
             }}
-            InputProps={{
-              startAdornment: (
-                <SearchIcon /> 
-              ),
-            }}
-          />
 
-        </Box>
+            //   onfocusout={(event) => console.log('out')}
+            placeholder="Restaurante"
+            required
+          />
+          <img src={searchIcon} />
+          </div>
+        </SearchWrapper>
 
         <CategroysStyle>
           {foundRestaurants ? renderCategorys() : null}
@@ -207,13 +216,13 @@ const Home = () => {
             </Typography>        ) : restaurants.length > 0 ? (
           restaurants
         ) : (
-          <Typography color="primary.main" variant="body1"> 
-            Nenhum restaurante encontrado :(
-          </Typography>
+
+          <p>Não encontramos :(</p>
+
         )}
         {console.log("render")}
+        <span></span>
       </SearchContainerStyle>
-    </>
   );
 };
 

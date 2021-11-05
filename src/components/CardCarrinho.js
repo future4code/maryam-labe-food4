@@ -10,13 +10,13 @@ import {GlobalContext}  from "../contexts/GlobalContext";
 
 
 
-const CardCarrinho = () => {
+const CardCarrinho = ({item}) => {
 
-    const { carrinho, setCarrinho } = useContext(GlobalContext);
-    const tamanhoCart   =   carrinho.length
-    let contador = 0
+    console.log(item)
 
+    const { carrinho, setCarrinho, removeItenFromCard } = useContext(GlobalContext);
 
+        
     return (
 
     <Box sx={{ 
@@ -40,8 +40,8 @@ const CardCarrinho = () => {
                 component="img"
                 height="110px"
                 width="97px"
-                image={carrinho[contador].photoUrl}
-                alt="comida"
+                image={item.photoUrl}
+                alt={item.name}
             />
 
         </Box>
@@ -63,7 +63,7 @@ const CardCarrinho = () => {
                     >
 
                         <Typography gutterBottom variant="body1" component="div" color='primary.main'>
-                            {carrinho[contador].name}
+                            {item.name}
                         </Typography>
 
                         <Box sx={{
@@ -74,27 +74,29 @@ const CardCarrinho = () => {
                             borderRadius: '8px',
                             borderColor: 'primary.main',
                             display: 'flex',
-                            alignItems: 'center',
+                            alignitem: 'center',
                             justifyContent: 'center'
                         
                             }}> 
 
                             <Typography gutterBottom variant="body1" component="div" color='primary.main'>
-                            {carrinho[contador].quantity}
+                            {item.quantity}
+    
                             </Typography>
                         </Box>
                     </Box>
 
                     <Box>
                         <Typography variant="body2" color="text.secondary">
-                            {carrinho[contador].description}
+                            {item.description}
+                            {console.log('propriedades',item)}
                         </Typography>   
                     </Box>
 
                     <Box sx={{display:'flex', width:'230px', justifyContent:'space-between'}}>
 
                         <Typography variant="body1" >
-                            R${carrinho[contador].price},00
+                            R$ {(item.quantity * item.price).toFixed(2).replace(".", ",")}
                         </Typography> 
 
                         
@@ -106,7 +108,9 @@ const CardCarrinho = () => {
                             height:         '30px'
                         }} > 
 
-                            <Typography variant='body1'>
+                            <Typography variant='body1'
+                            onClick={() => removeItenFromCard(item)}
+                            >
                                 remover
                             </Typography>
                         </Button>                           

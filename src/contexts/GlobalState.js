@@ -8,6 +8,7 @@ import { goToProfile, goToHome } from "../routes/coordinator";
 
 const GlobalState = (props) => {
   const [form, onChange, clear] = useForm({
+    paymentMethod: "",
     street: "",
     number: "",
     neighbourhood: "",
@@ -18,6 +19,9 @@ const GlobalState = (props) => {
     email: "",
     cpf: "",
     searchInput: "",
+    quantityInput: "",
+    money: "",
+    creditcard: "",
   });
 
   const [userInfos, setUserInfos] = useState({});
@@ -25,8 +29,10 @@ const GlobalState = (props) => {
   const [ordersHistory, setOrdersHistory] = useState([]);
   const token = localStorage.getItem("token");
   const history = useHistory();
-  const [carrinho, setCarrinho] = useState();
+  const [carrinho, setCarrinho] = useState([]);
   const [choosedItem, setChoosedItem] = useState(false);
+  const [quantity, setQuantity] = useState(0)
+  const [activeOrder, setActiveOrder] = useState('')
   // Requisição para pegar alterar o perfil:
 
   const updateProfile = () => {
@@ -84,7 +90,6 @@ const GlobalState = (props) => {
 
   const [choosedCategory, setChoosedCategory] = useState("");
   const [serachInputOnFocus, setSerachInputOnFocus] = useState(false);
-  const [id, setId] = useState("1");
   const [choosedRestaurant, setChoosedRestaurant] = useState([]);
   const [newArray, setNewArray] = useState();
   const [category, setCategory] = useState();
@@ -191,6 +196,94 @@ const GlobalState = (props) => {
     goToHome(history);
   };
 
+  // Requisição dos detalhes do restaurant
+
+  const getDetails = async (id) => {
+
+    try {
+      const response = await axios.get(
+        `https://us-central1-missao-newton.cloudfunctions.net/rappi4B/restaurants/${id}`,
+        {
+          headers: {
+            auth: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setChoosedRestaurant([response.data.restaurant]);
+      var newArray = [];
+      for (let i = 0; i < response.data.restaurant.products.length; i++) {
+        let category = response.data.restaurant.products[i].category;
+        if (!newArray[category]) {
+          newArray[category] = [];
+        }
+        newArray[category].push(response.data.restaurant.products[i]);
+      }
+      setNewArray(newArray);
+      let categorys = Object.keys(newArray);
+      setCategory(categorys);
+    } catch (error) {
+      alert("error:", error);
+    }
+  };
+
+  // Tenta executar uma ordem
+
+  const postOrder = async (objeto, id) => {
+    const body = objeto
+    if(activeOrder || activeOrder === null){if(carrinho.length){
+      try {
+      const response = await axios.post(
+        `https://us-central1-missao-newton.cloudfunctions.net/rappi4B/restaurants/${id}/order`, body,
+        {
+          headers: {
+            auth: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log('resposta', response)
+      history.push('/home')
+    } catch (error) {
+      alert("error:", error);
+      console.log('erro', error)
+    }
+    } else{
+      alert("Carrinho vazio")
+    }}
+    else{
+      alert("Já há um pedido em andamento.")
+    }
+  };
+
+  // Verificar ordem ativa
+
+  const getActiveOrder = async () => {
+      try {
+      const response = await axios.get(
+        `https://us-central1-missao-newton.cloudfunctions.net/rappi4B/active-order`,
+        {
+          headers: {
+            auth: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setActiveOrder(response.data.order)
+    } catch (error) {
+      alert("error:", error);
+      console.log('erro', error)
+    }
+    }
+
+  const removeItenFromCard = (item) => {
+    const newCart = carrinho.filter((itemFromCart, index ) =>{
+      return item.id !== itemFromCart.id
+    })
+    setQuantity(0)
+    setCarrinho(newCart)
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -227,18 +320,22 @@ const GlobalState = (props) => {
         getListOfRestaurants,
         serachInputOnFocus,
         setSerachInputOnFocus,
-        id,
-        setId,
         choosedRestaurant,
         setChoosedRestaurant,
         newArray,
         setNewArray,
         category,
         setCategory,
-        carrinho,
-        setCarrinho,
         choosedItem,
         setChoosedItem,
+        quantity, 
+        setQuantity,
+        removeItenFromCard,
+        getDetails,
+        postOrder,
+        getActiveOrder,
+        activeOrder, 
+        setActiveOrder,
       }}
     >
       {props.children}
