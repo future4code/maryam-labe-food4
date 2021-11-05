@@ -17,3 +17,15 @@ export const goToProfile = (history) => {
 export const goToCart = (history) => {
   history.push("/cart");
 };
+
+export const goToSearch = (history) => {
+  history.push("/search");
+};
+
+export const goToChangeProfile = (history) => {
+  history.push("/change-profile");
+};
+
+export const goToHome = (history) => {
+  history.push("/home");
+};

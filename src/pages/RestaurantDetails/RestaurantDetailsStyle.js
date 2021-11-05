@@ -13,11 +13,20 @@ export const RestaurantDetailsStyle = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: 2;
+  }
+  aside > div{
+    position: relative;
     width: 90%;
     height: 40%;
-    top: 50%;
+    background-color: white;
+    top: 30%;
     display: hidden;
-    opacity: 0;
+    opacity: 1;
+    z-index: 2;
   }
   aside > button{
     cursor: pointer;

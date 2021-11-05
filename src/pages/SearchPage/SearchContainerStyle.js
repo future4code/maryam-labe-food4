@@ -12,9 +12,6 @@ export const SearchWrapper = styled.div`
     border-width: 1px;
     border-color: #d0cbcb;
     border-style: solid;
-    /* :focus{
-        outline: none;
-    } */
   }
   div > img{
     position: absolute;

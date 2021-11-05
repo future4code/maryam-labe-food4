@@ -1,142 +1,231 @@
-import React, { useEffect, useState } from "react"
-import { GlobalContext } from "./GlobalContext"
-import useForm from "../hooks/useForm"
-import { BASE_URL } from "../constants/urls"
-import axios from "axios"
-import { useHistory } from "react-router"
-import { goToProfile } from "../routes/coordinator"
-
+import React, { useState } from "react";
+import { GlobalContext } from "./GlobalContext";
+import useForm from "../hooks/useForm";
+import { BASE_URL } from "../constants/urls";
+import axios from "axios";
+import { useHistory } from "react-router";
+import { goToSearch, goToProfile } from "../routes/coordinator";
 
 const GlobalState = (props) => {
-    const [form, onChange, clear] = useForm({ searchInput: '',street: "", number: "", neighbourhood: "", city: "", state: "", complement: "" })
-    const [userInfos, setUserInfos] = useState({})
-    const [userAddress, setUserAddress] = useState({})
-    const [ordersHistory, setOrdersHistory] = useState([])
-    const token = localStorage.getItem("token")
-    const history = useHistory()
+  const [form, onChange, clear] = useForm({
+    street: "",
+    number: "",
+    neighbourhood: "",
+    city: "",
+    state: "",
+    complement: "",
+    name: "",
+    email: "",
+    cpf: "",
+    searchInput: "",
+  });
 
-    // Requisição para pegar histórico de ordens:
+  const [userInfos, setUserInfos] = useState({});
+  const [userAddress, setUserAddress] = useState({});
+  const [ordersHistory, setOrdersHistory] = useState([]);
+  const token = localStorage.getItem("token");
+  const history = useHistory();
+  const [carrinho, setCarrinho] = useState();
+  // Requisição para pegar alterar o perfil:
 
-    const getOrdersHistory = () => {
+  const updateProfile = () => {
+    const body = {
+      name: form.name,
+      email: form.email,
+      cpf: form.cpf,
+    };
 
-        axios.get(`${BASE_URL}/orders/history`, {
-            headers: {
-                auth: localStorage.getItem("token")
-            }
-        })
-            .then((response) => {
-                // console.log(`DEU CERTO o getOrdersHistory:`)
-                setOrdersHistory(response.data.orders)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+    axios
+      .put(`${BASE_URL}/profile`, body, {
+        headers: {
+          auth: token,
+        },
+      })
+      .then((response) => {
+        setUserInfos({
+          name: response.data.user.name,
+          email: response.data.user.email,
+          cpf: response.data.user.cpf,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
+  const onSendUpdateProfileForm = (event, history) => {
+    event.preventDefault();
+    clear();
+    updateProfile();
+    goToProfile(history);
+    console.log(`FOOOOOOOOOI`);
+  };
 
-    // Requisição para pegar os dados do usuário:
+  // Requisição para pegar histórico de ordens:
 
-    const getProfile = () => {
+  const getOrdersHistory = () => {
+    axios
+      .get(`${BASE_URL}/orders/history`, {
+        headers: {
+          auth: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        // console.log(`DEU CERTO o getOrdersHistory:`)
+        setOrdersHistory(response.data.orders);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-        axios.get(`${BASE_URL}/profile`, {
-            headers: {
-                auth: localStorage.getItem("token")
-            }
-        })
-            .then((response) => {
-                // console.log(`DEU CERTO o getProfile:`)
-                setUserInfos({
-                    id: response.data.user.id,
-                    name: response.data.user.name,
-                    email: response.data.user.email,
-                    cpf: response.data.user.cpf,
-                    hasAddress: response.data.user.hasAddress,
-                    address: response.data.user.address
-                })
+  const [foundRestaurants, setFoundRestaurants] = useState([]);
 
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+  const [choosedCategory, setChoosedCategory] = useState("");
+  const [serachInputOnFocus, setSerachInputOnFocus] = useState(false);
+  const [id, setId] = useState("1");
+  const [choosedRestaurant, setChoosedRestaurant] = useState([]);
+  const [newArray, setNewArray] = useState();
+  const [category, setCategory] = useState();
 
-    // Requisição para pegar endereço do usuário;
+  const getListOfRestaurants = () => {
+    axios
+      .get(`${BASE_URL}/restaurants`, {
+        headers: {
+          auth: localStorage.getItem("token"),
+          "Content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(`23`, response);
+        setFoundRestaurants(response.data.restaurants);
+        console.log(foundRestaurants);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    const getFullAddress = () => {
+  // Requisição para pegar os dados do usuário:
 
-        axios.get(`${BASE_URL}/profile/address`, {
-            headers: {
-                auth: localStorage.getItem("token")
-            }
-        })
-            .then((response) => {
-                setUserAddress({
-                    street: response.data.address.street,
-                    number: response.data.address.number,
-                    apartment: response.data.address.apartment,
-                    neighbourhood: response.data.address.neighbourhood,
-                    city: response.data.address.city,
-                    state: response.data.address.state
-                })
-                console.log(`DEU CERTO o getFullAddress `)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+  const getProfile = () => {
+    axios
+      .get(`${BASE_URL}/profile`, {
+        headers: {
+          auth: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        // console.log(`DEU CERTO o getProfile:`)
+        setUserInfos({
+          id: response.data.user.id,
+          name: response.data.user.name,
+          email: response.data.user.email,
+          cpf: response.data.user.cpf,
+          hasAddress: response.data.user.hasAddress,
+          address: response.data.user.address,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    // Atualização de endereço (tela Address.js);
+  // Requisição para pegar endereço do usuário;
 
-    const putAddAddress = () => {
+  const getFullAddress = () => {
+    axios
+      .get(`${BASE_URL}/profile/address`, {
+        headers: {
+          auth: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setUserAddress({
+          street: response.data.address.street,
+          number: response.data.address.number,
+          apartment: response.data.address.apartment,
+          neighbourhood: response.data.address.neighbourhood,
+          city: response.data.address.city,
+          state: response.data.address.state,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-        const body = {
-            street: form.street,
-            number: form.number,
-            neighbourhood: form.neighbourhood,
-            city: form.city,
-            state: form.state,
-            complement: form.complement,
-        }
-        axios.put(`${BASE_URL}/address`, body, {
-            headers: {
-                auth: localStorage.getItem("token")
-            }
-        })
-            .then((response) => {
-                localStorage.setItem("token", response.data.token)
-                console.log(`DEU CERTO o putAddAddress `)
-                goToProfile(history)
+  // Atualização de endereço (tela Address.js);
 
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+  const putAddAddress = () => {
+    const body = {
+      street: form.street,
+      number: form.number,
+      neighbourhood: form.neighbourhood,
+      city: form.city,
+      state: form.state,
+      complement: form.complement,
+    };
+    axios
+      .put(`${BASE_URL}/address`, body, {
+        headers: {
+          auth: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        console.log(`DEU CERTO o putAddAddress `);
+        goToProfile(history);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    const onSendAddressForm = (event, history) => {
-        event.preventDefault()
-        clear()
-        putAddAddress()
-        getFullAddress()
-        goToProfile(history)
-    }
+  const onSendAddressForm = (event, history) => {
+    event.preventDefault();
+    clear();
+    putAddAddress();
+    getFullAddress();
+    goToSearch(history);
+  };
 
-    return (
-        <GlobalContext.Provider value={{
-            onSendAddressForm,
-            onChange,
-            form,
-            userInfos,
-            setUserInfos,
-            getFullAddress,
-            getProfile,
-            userAddress,
-            getOrdersHistory,
-            ordersHistory
-        }}>
-            {props.children}
-        </GlobalContext.Provider>
-    )
-}
+  return (
+    <GlobalContext.Provider
+      value={{
+        onSendAddressForm,
+        onChange,
+        form,
+        userInfos,
+        setUserInfos,
+        getFullAddress,
+        getProfile,
+        userAddress,
+        getOrdersHistory,
+        ordersHistory,
+        onSendUpdateProfileForm,
+        foundRestaurants,
+        setFoundRestaurants,
+        choosedCategory,
+        setChoosedCategory,
+        getListOfRestaurants,
+        serachInputOnFocus,
+        setSerachInputOnFocus,
+        id,
+        setId,
+        choosedRestaurant,
+        setChoosedRestaurant,
+        newArray,
+        setNewArray,
+        category,
+        setCategory,
+        carrinho, 
+        setCarrinho,
+      }}
+    >
+      {props.children}
+    </GlobalContext.Provider>
+  );
+};
 
-export default GlobalState
+export default GlobalState;
