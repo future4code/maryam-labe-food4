@@ -1,4 +1,7 @@
 import React            from "react";
+import { useContext }   from "react"
+import {GlobalContext}  from "../../contexts/GlobalContext";
+
 import Box              from '@mui/material/Box';
 import Button           from '@mui/material/Button';
 import Typography       from '@mui/material/Typography';
@@ -9,16 +12,15 @@ import FormControl      from '@mui/material/FormControl';
 
 import CardCarrinho     from '../../components/CardCarrinho';
 import Endereco         from '../../components/Endereco';
-import useProtectedPage from "../../hooks/useProtectedPage"
-
-
-import {useState}       from 'react'
+import useProtectedPage from "../../hooks/useProtectedPage";
 
 
 const Cart = () => {
     useProtectedPage()
-    const [temCarrinho,setCarrinho] = useState(true)
+    const { carrinho, setCarrinho, userAddress } = useContext(GlobalContext);
 
+    let temCarrinho 
+    carrinho? temCarrinho = true : temCarrinho = false
 
 
     return (
@@ -35,7 +37,6 @@ const Cart = () => {
             minHeight:      '110vh'
         }}>
     
-
             <Box
             sx={{
                 marginTop:      '-2vh',
@@ -46,9 +47,9 @@ const Cart = () => {
                 height:         '64px',
                 display:        'flex',
             }}>
-
-                <Typography  color = "textPrimary" variant="h6"> Meu carrinho </Typography>
-            
+                <Typography  color = "textPrimary" variant="h6"> 
+                    Meu carrinho 
+                </Typography> 
             </Box>
 
 
@@ -63,10 +64,15 @@ const Cart = () => {
                 height:         '76px',
                 paddingLeft:    '4.5vw',
             }}>
+                <Typography color='fundoCinza.contrastText'>
+                    Endereço de entrega
+                </Typography>
 
-                <Typography color='fundoCinza.contrastText'>Endereço de entrega</Typography>
-                <Typography variant='bold'>Rua Alessandra Vieira, 34</Typography>
-
+                <Typography variant='bold'>
+                    {userAddress? 
+                    (userAddress.street? `${userAddress.street}, ${userAddress.number} - ${userAddress.neighbourhood}`: 'Carregando...')
+                    : 'Carregando...'}   
+                </Typography>
             </Box>
 
             <Box
@@ -81,7 +87,9 @@ const Cart = () => {
 
                 {temCarrinho?             
                 (<Box> <Endereco /><CardCarrinho />  </Box> ):
-                <Typography  color = "textPrimary" variant="body1"> Carrinho vazio </Typography>
+                <Typography  color = "textPrimary" variant="body1"> 
+                    Carrinho vazio 
+                </Typography>
                 }
 
 
@@ -102,7 +110,9 @@ const Cart = () => {
                 marginTop:      '33px',
 
             }}>
-                <Typography  color = "textPrimary" variant="body1"> Frete R$0,00</Typography>
+                <Typography  color = "textPrimary" variant="body1"> 
+                    Frete R$0,00
+                </Typography>
             </Box>
 
 
@@ -114,11 +124,15 @@ const Cart = () => {
                 display:        'flex',
             }}>
                 <Box sx={{     marginLeft: '8px'}}>                
-                    <Typography  color = "textPrimary" variant="body1"> SUBTOTAL </Typography>
+                    <Typography  color = "textPrimary" variant="body1"> 
+                        SUBTOTAL 
+                    </Typography>
                 </Box>
 
                 <Box sx={{       marginRight: '8px'}}>                
-                    <Typography  color = "primary" variant="body1"> R$0,00 </Typography>
+                    <Typography  color = "primary" variant="body1"> 
+                        R$0,00 
+                    </Typography>
                 </Box>
             </Box>
 
@@ -136,9 +150,18 @@ const Cart = () => {
             }}>
 
                 
-                <Typography  color = "textPrimary" variant="body1"> Forma de pagamento: </Typography>
-                <Box sx={{              border: '1px solid black',
- marginBottom:'3px', width: 'inherit',  height: '1px', border: '1px solid black'}}></Box>
+                <Typography  color = "textPrimary" variant="body1"> 
+                    Forma de pagamento: 
+                </Typography>
+
+                <Box sx={{ 
+                    marginBottom:'3px', 
+                    width: 'inherit',  
+                    height: '1px', 
+                    border: '1px solid black'}}
+                    >
+
+                </Box>
                 
                 <FormControl component="fieldset">
                     <RadioGroup>
@@ -150,9 +173,9 @@ const Cart = () => {
             </Box>
             
             <Button style={{minWidth: '323px'}} variant='contained' color='primary'>
-            <Typography variant='button'>    
-                Confirmar
-            </Typography>
+                <Typography variant='button'>    
+                    Confirmar
+                </Typography>
             </Button>
 
         </Box>

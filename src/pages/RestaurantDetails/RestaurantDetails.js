@@ -113,7 +113,6 @@ const RestaurantDetails = () => {
         <h1>Loading...</h1>
       )}
       {choosedRestaurant && newArray && category ? renderCategorys() : null}
-      {console.log("render")}
       <aside id="popup">
         <p>Selecione a quantidade desejada</p>
         <select>{renderOptions()}</select>

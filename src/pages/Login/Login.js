@@ -1,13 +1,13 @@
-import React      from "react";
-import Box        from '@mui/material/Box';
-import Button     from '@mui/material/Button';
+import React from "react";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { goToSignUp } from "../../routes/coordinator";
 import { useHistory } from "react-router-dom";
 
-import LoginForm          from "./LoginForm";
-import logo               from '../../components/img/logo.svg';
+import LoginForm from "./LoginForm";
+import logo from '../../components/img/logo.svg';
 import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 
 
@@ -20,7 +20,6 @@ const Login = () => {
 
     <Box
       sx={{
-        border: '1px solid black',
         display: 'flex',
         marginTop: '3vh',
         flexDirection: 'column',

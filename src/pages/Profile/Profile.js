@@ -1,11 +1,12 @@
 import { ProfileBox, MiddleContainer, EdditButton, InfosOrders, InfosAdress, InfosPerson, Body, History, Infos, MiddleBox, EachHistoryCardProfile } from "./styled"
 import { goToAddress, goToChangeProfile } from "../../routes/coordinator"
-import React, { useContext, useEffect } from "react"
-import { GlobalContext }      from "../../contexts/GlobalContext";
-import useProtectedPage       from "../../hooks/useProtectedPage"
-import ImageEdit              from "../../assets/edit.svg"
-import { useHistory }         from "react-router";
-import Typography             from '@mui/material/Typography';
+import React, { useContext, useEffect }   from "react"
+import { GlobalContext }                  from "../../contexts/GlobalContext";
+import useProtectedPage                   from "../../hooks/useProtectedPage"
+import ImageEdit                          from "../../assets/edit.svg"
+import { useHistory }                     from "react-router";
+import Typography                         from '@mui/material/Typography';
+import Box                                from '@mui/material/Box';
 
 
 const Profile = () => {
@@ -29,7 +30,7 @@ const Profile = () => {
 
   return (
     <Body>
-      
+
       <ProfileBox>
         <Typography>Meu Perfil</Typography>
       </ProfileBox>
@@ -47,7 +48,7 @@ const Profile = () => {
           <EdditButton alt="Name" src={ImageEdit} onClick={() => goToChangeProfile(history)} />
         </InfosPerson>
       ) : (
-        <Typography>Carregando...Aguarde</Typography>
+        <Typography><br />Carregando...Aguarde<br /><br /><br /></Typography>
       )}
 
       <MiddleBox>
@@ -71,7 +72,7 @@ const Profile = () => {
 
       <InfosOrders>
 
-        {ordersHistory.lenght === 0 ? (<h4>Você não realizou nenhum pedido</h4>) : (
+        {!ordersHistory.length || ordersHistory.length === 0 ? (<h4>Você não realizou nenhum pedido</h4>) : (
           ordersHistory && ordersHistory.map((item) => {
             return (
               <EachHistoryCardProfile key={item.createdAt}>
@@ -81,11 +82,11 @@ const Profile = () => {
               </EachHistoryCardProfile>
             )
           })
-
         )
         }
 
       </InfosOrders>
+        <Box sx={{height:'10vh'}} />
 
     </Body >
   )
