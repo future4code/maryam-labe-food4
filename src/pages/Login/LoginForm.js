@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import useForm from "../../hooks/useForm";
 import { loginData } from "../../services/user";
 import Box from "@mui/material/Box";
@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 import { useHistory } from "react-router";
 import { CircularProgress } from "@mui/material";
 import { goToSearch } from "../../routes/coordinator";
@@ -19,7 +18,7 @@ import SplashScreen from "../../img/SplashScreen.png"
 const LoginForm = () => {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTimeout(() => {
       setLoading(false);
       const token = localStorage.getItem("token");

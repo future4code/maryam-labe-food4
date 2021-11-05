@@ -51,7 +51,6 @@ const Router = () => {
 
         <Route exact path="/restaurant/:id?/">
           <RestaurantDetails />
-          <Footer/>
         </Route>
 
         <Route exact path="/change-profile">
