@@ -69,7 +69,7 @@ cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 25%;
+  height: 30%;
   width: 90%;
   min-height: auto;
   min-width: auto;
@@ -80,16 +80,6 @@ cursor: pointer;
   margin-bottom: 12px;
   border-radius: 8px;
   overflow: hidden;
-  h3 {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    height: 20%;
-    width: 100%;
-    margin: 0;
-    color: #e86e5a;
-    padding: 3% 0 0 5%;
-  }
   img {
     height: 60%;
     width: 100%;
@@ -107,18 +97,6 @@ cursor: pointer;
     height: 20%;
     width: 100%;
     padding-bottom: 3%;
-    p {
-      height: 100%;
-      width: 20%;
-      margin: 0;
-      padding: 0 0 0 5%;
-      color: #b8b8b8;
-      font-weight: 600;
-      :nth-child(2){
-            width: 30%;
-            padding: 0 5% 0 0 ;
-            text-align: right;
-      }
     }
   }
 `;
