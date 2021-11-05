@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   RestaurantDetailsStyle,
   RestauranteContainer,
@@ -7,39 +7,71 @@ import {
 } from "./RestaurantDetailsStyle";
 import Header from "../../components/Header/Header";
 import useProtectedPage from "../../hooks/useProtectedPage"
+import { GlobalContext } from "../../contexts/GlobalContext";
+import { useParams } from "react-router";
+import DropDownArrow from '../../img/DropDownArrow.png'
+import zIndex from "@mui/material/styles/zIndex";
+
+
 
 const RestaurantDetails = () => {
-  const [id, setId] = useState("1");
-  const [choosedRestaurant, setChoosedRestaurant] = useState([]);
-  const [newArray, setNewArray] = useState();
-  const [category, setCategory] = useState();
-  // const [haveTheItem, setHaveTheItem] = useState(true)
-  const [quantity, setQuantity] = useState(3);
+  const {id, setId,choosedRestaurant, setChoosedRestaurant, newArray, setNewArray, category, setCategory, quantity, setQuantity, carrinho, setCarrinho, choosedItem, 
+    setChoosedItem } = useContext(GlobalContext)
+
   useProtectedPage()
+  const pathParams = useParams()
+
+  const addItensToCart = (item) =>{
+    const hasTheItem = carrinho ? carrinho.filter((itemDoCarrinho, index) =>{
+      if(item.id === itemDoCarrinho.id){
+        return index
+      } 
+    }) : null
+
+    if(hasTheItem !== [] || hasTheItem !== null){
+      setCarrinho(carrinho[hasTheItem].quantity + 1)
+    }else{
+      carrinho.push({...item, restaurantId: pathParams.id})
+    }
+    console.log(carrinho, 'esse carrinho')
+  }
+
+  const handlePrice = (number) =>{
+    return number.toFixed(2).replace('.', ',')
+  }
 
   const renderOptions = () => {
+    const arrayOfOptions = []
     for(let i = 0; i !== 11; i++) {
-      return <option>{i}</option>;
+      arrayOfOptions.push(i);
     }
+    return arrayOfOptions.map((option) =>{
+      return (
+        <option>
+          {option}
+        </option>
+      )
+    })
   };
+
   const renderCategorys = () => {
     return category.map((categoryName) => {
       return (
         <>
           <h2>{categoryName}</h2>
-          {newArray[categoryName].map((categorys) => {
+          {newArray[categoryName].map((item) => {
             return (
-              <ElementContainer key={categorys.id}>
+              <ElementContainer key={item.id}>
                 <div>
-                  <img alt="Food" src={categorys.photoUrl} />
+                  <img alt="Food" src={item.photoUrl} />
                 </div>
                 <div>
-                  <h3>{categorys.name}</h3>
-                  <p>{categorys.description}</p>
-                  <p>R${categorys.price},00</p>
+                  <h3>{item.name}</h3>
+                  <p>{item.description}</p>
+                  <p>R$ {handlePrice(item.price)}</p>
                 </div>
                 <div>
-                  {quantity ? (
+                  {item.quantity ? (
                     <span> {quantity} </span>
                   ) : (
                     <span style={{ display: "none" }}></span>
@@ -49,7 +81,10 @@ const RestaurantDetails = () => {
                       remover
                     </span>
                   ) : (
-                    <span>adicionar</span>
+                    <span 
+                    onclick={(event) => {event.stopPropagation(); console.log('click');setChoosedItem(item)}}
+                    style={{zIndex: '20'}}
+                    >adicionar</span>
                   )}
                 </div>
               </ElementContainer>
@@ -113,11 +148,20 @@ const RestaurantDetails = () => {
         <h1>Loading...</h1>
       )}
       {choosedRestaurant && newArray && category ? renderCategorys() : null}
-      <aside id="popup">
+      {console.log("render")}
+      {choosedItem ? (
+                    <aside id="popup">
+        <div>
         <p>Selecione a quantidade desejada</p>
-        <select>{renderOptions()}</select>
-        <button>ADICIONAR AO CARRINHO</button>
+        <select >
+          <img src={DropDownArrow}/>
+          {renderOptions()}
+        </select>
+        <button onclick={() => addItensToCart()}>ADICIONAR AO CARRINHO</button>
+        </div>
       </aside>
+      ) : ('')} 
+      
     </RestaurantDetailsStyle>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import useForm from "../../hooks/useForm";
 import { loginData } from "../../services/user";
 import Box from "@mui/material/Box";
@@ -8,14 +8,28 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 import { useHistory } from "react-router";
-import { CircularProgress } from '@mui/material';
+import { CircularProgress } from "@mui/material";
+import { goToHome } from "../../routes/coordinator";
+import { ImgSplashScreenStyle } from "./styled"
+import SplashScreen from "../../img/SplashScreen.png"
+
 
 const LoginForm = () => {
-  useUnprotectedPage();
+  const [loading, setLoading] = useState(true);
+
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+      const token = localStorage.getItem("token");
+      if (token) {
+        goToHome(history);
+      }
+    }, 1200);
+  }, []);
+
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [form, onChange, clear] = useForm({ email: "", password: "" });
   const [values, setValues] = React.useState({
     password: "",
@@ -39,7 +53,9 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
-  return (
+  return loading ? (
+    <ImgSplashScreenStyle src={SplashScreen} id="loadingSplashScreen" />
+  ) : (
     <form onSubmit={onSubmitForm}>
       <Box
         sx={{
@@ -91,10 +107,11 @@ const LoginForm = () => {
             type="submit"
             size="large"
           >
-            {isLoading ? <CircularProgress
-              color={"inherit"}
-              size={24}
-            /> : <>Entrar</>}
+            {isLoading ? (
+              <CircularProgress color={"inherit"} size={24} />
+            ) : (
+              <>Entrar</>
+            )}
           </Button>
         </Box>
       </Box>

@@ -1,6 +1,6 @@
 import axios        from "axios";
 import { BASE_URL } from "../constants/urls";
-import { goToAddress, goToSearch } from "../routes/coordinator";
+import { goToAddress, goToHome } from "../routes/coordinator";
 
 export const signUpData = (body, clear, history, setIsLoading) => {
   setIsLoading(true)
@@ -25,7 +25,7 @@ export const loginData = (body, clear, history, setIsLoading) => {
     .post(`${BASE_URL}/login`, body)
     .then((res) => {
       if (res.data.user.hasAddress) {
-        goToSearch(history)
+        goToHome(history)
       } else {
         goToAddress(history);
       }

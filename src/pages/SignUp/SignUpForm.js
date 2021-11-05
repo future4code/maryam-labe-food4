@@ -56,7 +56,7 @@ const SignUpForm = () => {
           display: "flex",
           flexDirection: "column",
           width: "50vw",
-          height: "60vh",
+          height: "70vh",
           alignItems: "center",
           justifyContent: "space-around",
         }}
@@ -65,11 +65,11 @@ const SignUpForm = () => {
           <TextField
             fullWidth
             required
-            label="Nome"
             type="text"
             name={"name"}
             value={form.name}
             onChange={onChange}
+            label="Nome"
           />
         </Box>
 

@@ -8,7 +8,7 @@ import { GlobalContext } from "../../contexts/GlobalContext";
 import { useHistory } from "react-router"
 import Header from "../../components/Header/Header"
 import { CircularProgress } from '@mui/material';
-import {goToProfile} from "../../routes/coordinator"
+import { goToProfile } from "../../routes/coordinator"
 
 const ChangeProfile = () => {
     useProtectedPage()
