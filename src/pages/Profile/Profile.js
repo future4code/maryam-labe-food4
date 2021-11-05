@@ -1,6 +1,6 @@
 import { ProfileBox, MiddleContainer, EdditButton, InfosOrders, InfosAdress, InfosPerson, Body, History, Infos, MiddleBox, EachHistoryCardProfile } from "./styled"
 import { goToAddress, goToChangeProfile } from "../../routes/coordinator"
-import React, { useContext, useEffect }   from "react"
+import React, { useContext, useEffect, useLayoutEffect }   from "react"
 import { GlobalContext }                  from "../../contexts/GlobalContext";
 import useProtectedPage                   from "../../hooks/useProtectedPage"
 import ImageEdit                          from "../../assets/edit.svg"
@@ -12,13 +12,20 @@ import Box                                from '@mui/material/Box';
 const Profile = () => {
   useProtectedPage()
   const history = useHistory()
-  const { getFullAddress, userInfos, getProfile, userAddress, getOrdersHistory, ordersHistory } = useContext(GlobalContext);
+  const { carrinho, getFullAddress, getActiveOrder, setActiveOrder, userInfos, getProfile, userAddress, getOrdersHistory, ordersHistory } = useContext(GlobalContext);
 
   useEffect(() => {
     getFullAddress()
     getProfile()
     getOrdersHistory()
   }, [])
+
+  useLayoutEffect(() => {
+    getActiveOrder()
+    setTimeout(() => {
+      setActiveOrder('')
+    }, 3000);
+  });
 
   const convertDate = (timestamp) => {
     let time = new Date(timestamp)

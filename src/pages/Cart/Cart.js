@@ -1,4 +1,4 @@
-import React            from "react";
+import React, { useEffect, useLayoutEffect }            from "react";
 import { useContext }   from "react"
 import {GlobalContext}  from "../../contexts/GlobalContext";
 
@@ -17,11 +17,60 @@ import useProtectedPage from "../../hooks/useProtectedPage";
 
 const Cart = () => {
     useProtectedPage()
-    const { carrinho, setCarrinho, userAddress } = useContext(GlobalContext);
+    const { setActiveOrder, getActiveOrder, postOrder, carrinho, onChange, form, setCarrinho, userAddress, getFullAddress } = useContext(GlobalContext);
+
+    useLayoutEffect(() => {
+        getActiveOrder()
+        setTimeout(() => {
+          setActiveOrder('')
+        }, 3000);
+      }, []);
+
 
     let temCarrinho 
     carrinho? temCarrinho = true : temCarrinho = false
+    useEffect(() => {
+        getFullAddress()
+        // getProfile()
+        // getOrdersHistory()
+      }, [])
 
+
+
+
+      const postMyOder = () => {
+        const listOfItens = carrinho.map((itemOnCart) => {
+            return {quantity: itemOnCart.quantity, id: itemOnCart.id}
+        })
+
+        const id = carrinho[0].restaurantId
+
+        const objectOfTheOrder = {
+            paymentMethod: form.paymentMethod,
+            products: listOfItens
+        }
+        console.log('requisição', objectOfTheOrder, id)
+        postOrder(objectOfTheOrder, id)
+      }
+
+      const sumOfItens = () => {
+        let totalValue = carrinho[0] !== undefined ? (carrinho[0].shipping) : (0)
+        carrinho.map((itemOnCart) => {
+           totalValue = (itemOnCart.quantity * itemOnCart.price) + totalValue
+        })
+     return totalValue.toFixed(2).replace(".", ",")
+   }
+
+    const renderItems = () =>{
+        const mapItens = carrinho.map((itemOnCart) =>{
+            return (
+            <CardCarrinho 
+            item={itemOnCart}
+            /> 
+            )
+        })
+        return mapItens
+    }
 
     return (
 
@@ -86,7 +135,8 @@ const Cart = () => {
             }}>
 
                 {temCarrinho?             
-                (<Box> <Endereco /><CardCarrinho />  </Box> ):
+                (<Box> <Endereco /> {renderItems()}
+                  </Box> ):
                 <Typography  color = "textPrimary" variant="body1"> 
                     Carrinho vazio 
                 </Typography>
@@ -111,7 +161,7 @@ const Cart = () => {
 
             }}>
                 <Typography  color = "textPrimary" variant="body1"> 
-                    Frete R$0,00
+                    Frete R$ {carrinho[0] !== undefined ? (carrinho[0].shipping.toFixed(2).replace(".", ",")) : ('0,00')}
                 </Typography>
             </Box>
 
@@ -130,9 +180,15 @@ const Cart = () => {
                 </Box>
 
                 <Box sx={{       marginRight: '8px'}}>                
-                    <Typography  color = "primary" variant="body1"> 
-                        R$0,00 
-                    </Typography>
+                    {carrinho ? (
+                        <Typography  color = "primary" variant="body1">
+                            R$ {sumOfItens()}
+                        </Typography>
+                        ) : (
+                        <Typography  color = "primary" variant="body1"> 
+                            R$0,00
+                        </Typography>)
+                    }
                 </Box>
             </Box>
 
@@ -164,19 +220,27 @@ const Cart = () => {
                 </Box>
                 
                 <FormControl component="fieldset">
-                    <RadioGroup>
-                        <FormControlLabel value="Dinheiro" control={<Radio />} label="Dinheiro" />
-                        <FormControlLabel value="Cartão" control={<Radio />} label="Cartão" />
+                    <RadioGroup
+                    name="paymentMethod"
+                    onChange={onChange}
+                    >
+                        <FormControlLabel value="money" control={<Radio />} label="Dinheiro" />
+                        <FormControlLabel value="creditcard" control={<Radio />} label="Cartão" />
                     </RadioGroup>
                 </FormControl>
 
             </Box>
             
             <Button style={{minWidth: '323px'}} variant='contained' color='primary'>
-                <Typography variant='button'>    
+                <Typography 
+                variant='button'
+                onClick={() => postMyOder()}
+                >    
                     Confirmar
                 </Typography>
             </Button>
+        <Box sx={{height:'10vh'}} />
+            
 
         </Box>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext, useLayoutEffect } from 'react';
 import { goToProfile } from "../../routes/coordinator";
 import { goToCart, goToHome } from "../../routes/coordinator";
 import { useHistory } from 'react-router-dom';
@@ -8,6 +8,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import Paper from '@mui/material/Paper';
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import ActiveOrderComponent from '../../components/ActiveOrderComponent/ActiveOrderComponent'
+import {GlobalContext}  from "../../contexts/GlobalContext";
+
 // import HomeIcon from "@mui/icons-material/Home";
 // import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 // import PersonIcon from "@mui/icons-material/Person";
@@ -17,6 +20,10 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 const Footer = () => {
   const [value, setValue] = React.useState(0);
   const history = useHistory()
+  const { activeOrder, setActiveOrder, getActiveOrder } = useContext(GlobalContext);
+
+  
+
   return (
     <Paper sx={{
       position: 'fixed',
@@ -26,7 +33,7 @@ const Footer = () => {
     }}
       elevation={3}
     >
-
+      <ActiveOrderComponent/>
       <BottomNavigation
         showLabels
         value={value}

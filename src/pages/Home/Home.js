@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import Header from "../../components/Header/Header";
 import {
@@ -8,7 +8,7 @@ import {
   SearchWrapper,
   HomeStyle,
 } from "./HomeStyle";
-import SearchIcon from "@mui/icons-material/Search";
+import {SearchIcon} from "../../img/searchIcon.png";
 // import { useHistory, useParams } from "react-router-dom";
 import useProtectedPage from "../../hooks/useProtectedPage";
 import Box from "@mui/material/Box";
@@ -25,10 +25,19 @@ const Home = () => {
 
   useProtectedPage();
 
+  useLayoutEffect(() => {
+    getActiveOrder()
+    setTimeout(() => {
+      setActiveOrder('')
+    }, 3000);
+  }, []);
+
   // const history = useHistory();
   /* const pathParams = useParams();*/
 
   const {
+    getActiveOrder,
+    setActiveOrder,
     form,
     onChange,
     getListOfRestaurants,
