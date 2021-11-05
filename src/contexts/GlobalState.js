@@ -4,7 +4,7 @@ import useForm from "../hooks/useForm";
 import { BASE_URL } from "../constants/urls";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { goToSearch, goToProfile } from "../routes/coordinator";
+import { goToProfile, goToHome } from "../routes/coordinator";
 
 const GlobalState = (props) => {
   const [form, onChange, clear] = useForm({
@@ -188,7 +188,7 @@ const GlobalState = (props) => {
     clear();
     putAddAddress();
     getFullAddress();
-    goToSearch(history);
+    goToHome(history);
   };
 
   return (
