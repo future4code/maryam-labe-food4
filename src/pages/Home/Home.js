@@ -8,16 +8,19 @@ import {
   SearchWrapper,
   HomeStyle,
 } from "./HomeStyle";
+
 import {SearchIcon} from "../../img/searchIcon.png";
+
 // import { useHistory, useParams } from "react-router-dom";
 import useProtectedPage from "../../hooks/useProtectedPage";
-import Box from "@mui/material/Box";
+
 
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { useHistory } from "react-router";
 import searchIcon from '../../img/searchIcon.png'
+
 
 const Home = () => {
 
@@ -79,20 +82,17 @@ const Home = () => {
       }
     });
 
-    // console.log(objectOfCategorys, "ob");
     let newArray = Object.keys(objectOfCategorys);
     return newArray.map((category) => {
-      //   console.log(category);
       return (
-        <p
-          style={choosedCategory === category ? { color: "#e86e5a" } : null}
+        <Typography
           onClick={(event) => {
             event.stopPropagation();
             handleChooseCategory(category);
           }}
         >
           {category}
-        </p>
+        </Typography>
       );
     });
   };
@@ -122,11 +122,15 @@ const Home = () => {
             restaurants.length > 0 ? (
               restaurants
             ) : (
-              <p>Não encontramos :(</p>
+              <Typography color="textPrimary" variant="body1"> 
+                Nada foi encontrado :(
+              </Typography>
             )
           ) : (
-            <p>Busque pelo nome dos restaurantes</p>
-          )}
+            <Typography color="textPrimary" variant="body1"> 
+              Digite o nome do restaurante! 
+            </Typography>
+            )}
           {console.log("render")}
         </SearchContainerStyle>
       </>
@@ -153,6 +157,7 @@ const Home = () => {
     })
     .map((restaurant) => {
       return (
+
         <RestauranteContainer
           // onClick={goToDetails()}
           key={restaurant.id}
@@ -167,7 +172,7 @@ const Home = () => {
         </RestauranteContainer>
       );
     });
-
+  
   return (
       <SearchContainerStyle
         onClick={() => {
@@ -175,6 +180,7 @@ const Home = () => {
         }}
       >
         <Header />
+
         <SearchWrapper>
           <div>
           <input
@@ -183,6 +189,7 @@ const Home = () => {
             value={form.searchInput}
             title="Insert the name of a restaurant"
             onChange={(event) => {
+
               setSerachInputOnFocus(!false);
               onChange(event);
             }}
@@ -190,6 +197,7 @@ const Home = () => {
               event.stopPropagation();
               setSerachInputOnFocus(true);
             }}
+
             //   onfocusout={(event) => console.log('out')}
             placeholder="Restaurante"
             required
@@ -197,15 +205,20 @@ const Home = () => {
           <img src={searchIcon} />
           </div>
         </SearchWrapper>
+
         <CategroysStyle>
           {foundRestaurants ? renderCategorys() : null}
         </CategroysStyle>
+
         {serachInputOnFocus && !form.searchInput ? (
-          <p>Busque pelo nome dos restaurantes</p>
-        ) : restaurants.length > 0 ? (
+            <Typography color="primary.main" variant="body1"> 
+              Digite o nome do restaurante! 
+            </Typography>        ) : restaurants.length > 0 ? (
           restaurants
         ) : (
+
           <p>Não encontramos :(</p>
+
         )}
         {console.log("render")}
         <span></span>

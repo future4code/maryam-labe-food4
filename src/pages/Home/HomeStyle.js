@@ -51,6 +51,7 @@ export const SearchContainerStyle = styled.div`
 `;
 
 export const CategroysStyle = styled.div`
+
   cursor: grab;
   display: flex;
   flex-direction: row;
