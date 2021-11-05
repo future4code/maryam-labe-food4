@@ -15,7 +15,7 @@ import zIndex from "@mui/material/styles/zIndex";
 
 
 const RestaurantDetails = () => {
-  const {id, setId,choosedRestaurant, setChoosedRestaurant, newArray, setNewArray, category, setCategory, quantity, setQuantity, carrinho, setCarrinho, choosedItem, 
+  const {choosedRestaurant, setChoosedRestaurant, newArray, setNewArray, category, setCategory, quantity, setQuantity, carrinho, setCarrinho, choosedItem, 
     setChoosedItem } = useContext(GlobalContext)
 
   useProtectedPage()
@@ -58,8 +58,8 @@ const RestaurantDetails = () => {
     return category.map((categoryName) => {
       return (
         <>
-          <h2>{categoryName}</h2>
-          {newArray[categoryName].map((item) => {
+          <h2>{categoryName && categoryName}</h2>
+          {newArray && newArray[categoryName] && newArray[categoryName].map((item) => {
             return (
               <ElementContainer key={item.id}>
                 <div>
@@ -101,7 +101,7 @@ const RestaurantDetails = () => {
 
     try {
       const response = await axios.get(
-        `https://us-central1-missao-newton.cloudfunctions.net/rappi4B/restaurants/${id}`,
+        `https://us-central1-missao-newton.cloudfunctions.net/rappi4B/restaurants/${pathParams.id}`,
         {
           headers: {
             auth: token,
@@ -109,6 +109,7 @@ const RestaurantDetails = () => {
           },
         }
       );
+      console.log('resposta',response)
       setChoosedRestaurant([response.data.restaurant]);
       var newArray = [];
       for (let i = 0; i < response.data.restaurant.products.length; i++) {
@@ -127,13 +128,14 @@ const RestaurantDetails = () => {
   };
 
   useEffect(() => {
+    setChoosedRestaurant(null)
     getDetails();
   }, []);
 
   return (
     <RestaurantDetailsStyle>
       <Header />
-      {choosedRestaurant && newArray && category ? (
+      {choosedRestaurant && choosedRestaurant.length && newArray && category ? (
         <RestauranteContainer>
           <img alt="food" src={choosedRestaurant[0].logoUrl} />
           <h3>{choosedRestaurant[0].name}</h3>
@@ -147,7 +149,7 @@ const RestaurantDetails = () => {
       ) : (
         <h1>Loading...</h1>
       )}
-      {choosedRestaurant && newArray && category ? renderCategorys() : null}
+      {category ? renderCategorys() : null}
       {console.log("render")}
       {choosedItem ? (
                     <aside id="popup">
@@ -157,7 +159,7 @@ const RestaurantDetails = () => {
           <img src={DropDownArrow}/>
           {renderOptions()}
         </select>
-        <button onclick={() => addItensToCart()}>ADICIONAR AO CARRINHO</button>
+        <button onclick={() => {console.log('clicou'); addItensToCart()}}>ADICIONAR AO CARRINHO</button>
         </div>
       </aside>
       ) : ('')} 

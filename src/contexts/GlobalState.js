@@ -84,7 +84,6 @@ const GlobalState = (props) => {
 
   const [choosedCategory, setChoosedCategory] = useState("");
   const [serachInputOnFocus, setSerachInputOnFocus] = useState(false);
-  const [id, setId] = useState("1");
   const [choosedRestaurant, setChoosedRestaurant] = useState([]);
   const [newArray, setNewArray] = useState();
   const [category, setCategory] = useState();
@@ -227,8 +226,6 @@ const GlobalState = (props) => {
         getListOfRestaurants,
         serachInputOnFocus,
         setSerachInputOnFocus,
-        id,
-        setId,
         choosedRestaurant,
         setChoosedRestaurant,
         newArray,

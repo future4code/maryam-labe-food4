@@ -6,6 +6,7 @@ import {
   RestauranteContainer,
   CategroysStyle,
   SearchWrapper,
+  HomeStyle,
 } from "./HomeStyle";
 import SearchIcon from "@mui/icons-material/Search";
 // import { useHistory, useParams } from "react-router-dom";
@@ -15,8 +16,13 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
+import { useHistory } from "react-router";
+import searchIcon from '../../img/searchIcon.png'
 
 const Home = () => {
+
+  const history = useHistory()
+
   useProtectedPage();
 
   // const history = useHistory();
@@ -141,6 +147,7 @@ const Home = () => {
         <RestauranteContainer
           // onClick={goToDetails()}
           key={restaurant.id}
+          onClick={() => history.push(`/restaurant/${restaurant.id}/`)}
         >
           <img alt="Restaurant" src={restaurant.logoUrl} />
           <h3>{restaurant.name}</h3>
@@ -153,15 +160,14 @@ const Home = () => {
     });
 
   return (
-    <>
       <SearchContainerStyle
         onClick={() => {
-          console.log(foundRestaurants);
           setSerachInputOnFocus(false);
         }}
       >
         <Header />
         <SearchWrapper>
+          <div>
           <input
             type="text"
             name="searchInput"
@@ -176,10 +182,11 @@ const Home = () => {
               setSerachInputOnFocus(true);
             }}
             //   onfocusout={(event) => console.log('out')}
-            placeholder="Restaurants"
+            placeholder="Restaurante"
             required
           />
-          <img src={SearchIcon} />
+          <img src={searchIcon} />
+          </div>
         </SearchWrapper>
         <CategroysStyle>
           {foundRestaurants ? renderCategorys() : null}
@@ -189,11 +196,11 @@ const Home = () => {
         ) : restaurants.length > 0 ? (
           restaurants
         ) : (
-          <p>Não econtramos :(</p>
+          <p>Não encontramos :(</p>
         )}
         {console.log("render")}
+        <span></span>
       </SearchContainerStyle>
-    </>
   );
 };
 

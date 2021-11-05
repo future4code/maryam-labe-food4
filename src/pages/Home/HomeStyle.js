@@ -1,73 +1,83 @@
 import styled from "styled-components";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 export const SearchWrapper = styled.div`
- div > input {
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7vh;
+  width: 100%;
+  margin: 5% 0;
+  div > input {
     box-sizing: border-box;
     flex-shrink: 0;
     width: 90%;
     height: 100%;
-    padding-left: 30px;
+    padding-left: 15%;
     border-width: 1px;
-    border-color: #d0cbcb;
+    border-color: #b8b8b8;
     border-style: solid;
+    color: #d0d0d0;
   }
-  div > img{
+  div > img {
     position: absolute;
-    left: 0;
+    left: 8%;
+    top: 30%;
     bottom: 10%;
-    width: 20%;
-    height: 80%;
+    width: 8%;
+    height: 43%;
   }
-  div{
+  div {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5%;
+    height: 100%;
     width: 100%;
-    margin: 12px 0;
   }
-
-`
+`;
 
 export const SearchContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  min-height: 110vh;
+  width: 100vw;
+  span{
+    height: 10vh;
+    width: 100%;
+  }
 `;
 
 export const CategroysStyle = styled.div`
-cursor: grab;
-display: flex;
-flex-direction: row;
-height: 10%;
-width: 90%;
-overflow: auto;
-scrollbar-width: none;
--ms-overflow-style: none;
--webkit-overflow-scrolling: touch;
-p{
-  cursor: pointer;
-  margin: 0 2%;
-  text-align: center;
-  p:hover{
-    color: #e86e5a;
+  cursor: grab;
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  width: 90%;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  p {
+    cursor: pointer;
+    margin: 0 2%;
+    text-align: center;
+    p:hover {
+      color: #e86e5a;
+    }
   }
-  }
-`
+`;
 
 export const RestauranteContainer = styled.div`
-box-sizing: border-box;
-cursor: pointer;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 25%;
+  height: 30%;
   width: 90%;
   min-height: auto;
   min-width: auto;
@@ -112,10 +122,10 @@ cursor: pointer;
       padding: 0 0 0 5%;
       color: #b8b8b8;
       font-weight: 600;
-      :nth-child(2){
-            width: 30%;
-            padding: 0 5% 0 0 ;
-            text-align: right;
+      :nth-child(2) {
+        width: 40%;
+        padding: 0 5% 0 0;
+        text-align: right;
       }
     }
   }
