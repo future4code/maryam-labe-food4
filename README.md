@@ -7,7 +7,7 @@ Esse projeto simula um app de delivery de refeições, semelhante ao Ifood, Rapp
 => Allan Gilber Martins Santana <br/>
 => Everton Guedes <br/>
 => Marcus Silva <br/>
-=> Matheus Schade (Linkedin: https://https://www.linkedin.com/in/matheus-schade-013772127/) <br/>
+=> Matheus Schade (Linkedin: https://www.linkedin.com/in/matheus-schade-013772127/) <br/>
 => Rafael Venâncio Cacilhas <br/>
 
 
