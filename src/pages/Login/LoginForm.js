@@ -10,7 +10,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useHistory } from "react-router";
 import { CircularProgress } from "@mui/material";
-import { goToSearch } from "../../routes/coordinator";
+import { goToHome } from "../../routes/coordinator";
 import { ImgSplashScreenStyle } from "./styled"
 import SplashScreen from "../../img/SplashScreen.png"
 
@@ -23,7 +23,7 @@ const LoginForm = () => {
       setLoading(false);
       const token = localStorage.getItem("token");
       if (token) {
-        goToSearch(history);
+        goToHome(history);
       }
     }, 1200);
   }, []);
