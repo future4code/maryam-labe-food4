@@ -42,6 +42,8 @@ export const SearchContainerStyle = styled.div`
 `;
 
 export const CategroysStyle = styled.div`
+margin-top: 1vh;
+margin-bottom: 2vh;
 cursor: grab;
 display: flex;
 flex-direction: row;
