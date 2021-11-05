@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import { loginData } from "../../services/user";
 import Box from "@mui/material/Box";
@@ -10,9 +10,23 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 import { useHistory } from "react-router";
+import SplashScreen from "../../img/SplashScreen.png";
+import { ImgSplashScreenStyle } from "./styled";
+import { goToSearch } from "../../routes/coordinator";
 
 const LoginForm = () => {
-  useUnprotectedPage();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+      const token = localStorage.getItem("token");
+      if (token) {
+        goToSearch(history);
+      }
+    }, 1200);
+  }, []);
+
   const history = useHistory();
 
   const [form, onChange, clear] = useForm({ email: "", password: "" });
@@ -39,7 +53,9 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
-  return (
+  return loading ? (
+    <ImgSplashScreenStyle src={SplashScreen} id="loadingSplashScreen" />
+  ) : (
     <form onSubmit={onSubmitForm}>
       <Box
         sx={{

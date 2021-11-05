@@ -1,15 +1,15 @@
-import { useHistory }       from 'react-router-dom';
-import { useLayoutEffect }  from 'react';
-import { goToProfile }      from '../routes/coordinator';
+import { useHistory } from "react-router-dom";
+import { useLayoutEffect } from "react";
+import { goToSearch } from "../routes/coordinator";
 
 const useUnprotectedPage = () => {
-  const history = useHistory()
-  useLayoutEffect(  () => {
-    const token = localStorage.getItem('token')
+  const history = useHistory();
+  useLayoutEffect(() => {
+    const token = localStorage.getItem("token");
     if (token) {
-      goToProfile(history)
+      goToSearch(history);
     }
-  }, [history])
-}
+  }, [history]);
+};
 
-export default useUnprotectedPage
+export default useUnprotectedPage;
