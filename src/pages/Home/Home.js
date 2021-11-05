@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { GlobalContext } from "../../contexts/GlobalContext";
-import Header from "../../components/Header/Header";
+import { GlobalContext }  from "../../contexts/GlobalContext";
+import Header             from "../../components/Header/Header";
 import {
   SearchContainerStyle,
   RestauranteContainer,
   CategroysStyle,
-  SearchWrapper,
 } from "./HomeStyle";
-// import { useHistory, useParams } from "react-router-dom";
+
 import useProtectedPage from "../../hooks/useProtectedPage";
 
 import Box        from "@mui/material/Box";
@@ -19,8 +18,6 @@ import TextField  from "@mui/material/TextField";
 const Home = () => {
   useProtectedPage();
 
-  // const history = useHistory();
-  /* const pathParams = useParams();*/
 
   const {
     form,
@@ -33,23 +30,12 @@ const Home = () => {
     serachInputOnFocus,
     setSerachInputOnFocus,
   } = useContext(GlobalContext);
-  // const history = useHistory();
-  /* const pathParams = useParams();*/
 
   useEffect(() => {
     getListOfRestaurants();
   }, []);
 
-  // const [choosenRestaurant, setChoosenRestaurant] = useState([])
 
-  // const goToDetails = (restaurant) => {
-  //     setChoosenRestaurant()
-  //     history.push()
-  // }
-
-  // const handlePrice = (number) =>{
-  //   return number.replace('.', ',').toFixed(2)
-  // }
 
   const handlePrice = (number) => {
     return number.toFixed(2).replace(".", ",");
@@ -88,7 +74,6 @@ const Home = () => {
     }
 
     return (
-      <>
         <SearchContainerStyle>
           <Header title="Busca" />
           <input
@@ -115,7 +100,6 @@ const Home = () => {
             )}
           {console.log("render")}
         </SearchContainerStyle>
-      </>
     );
   };
 
@@ -126,7 +110,6 @@ const Home = () => {
         .includes(form.searchInput.toLowerCase());
     })
     .filter((restaurant) => {
-      // console.log(form.searchInput)
       if (
         restaurant.category === choosedCategory ||
         !choosedCategory ||
@@ -141,15 +124,35 @@ const Home = () => {
       return (
 
         <RestauranteContainer
-          // onClick={goToDetails()}
           key={restaurant.id}
         >
           <img alt="Restaurant" src={restaurant.logoUrl} />
-          <h3>{restaurant.name}</h3>
-          <div>
-            <p>{restaurant.deliveryTime} min</p>
-            <p>Frete R$ {handlePrice(restaurant.shipping)}</p>
-          </div>
+
+          <Box sx={{
+            paddingLeft: '4.4vw', 
+            marginBottom:'-10px', 
+          }}>
+
+            <Typography color="primary.main" variant="body1">
+              {restaurant.name}
+            </Typography>
+          </Box>
+
+          <Box sx={{
+            width:        'inherit',
+            paddingLeft:  '4.4vw', 
+            paddingRight: '4.4vw',
+            marginBottom: '-10px',
+          }}>
+
+            <Typography color="primary.cinza" variant="body1">
+              {restaurant.deliveryTime} min
+            </Typography>
+
+            <Typography color="primary.cinza" variant="body1">
+              Frete R$ {handlePrice(restaurant.shipping)}
+            </Typography>
+          </Box>
         </RestauranteContainer>
       );
     });
