@@ -7,14 +7,14 @@ import {
   CategroysStyle,
   SearchWrapper,
 } from "./HomeStyle";
-import SearchIcon from "@mui/icons-material/Search";
 // import { useHistory, useParams } from "react-router-dom";
 import useProtectedPage from "../../hooks/useProtectedPage";
-import Box from "@mui/material/Box";
 
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
+import Box        from "@mui/material/Box";
+import SearchIcon from "@mui/icons-material/Search";
+import Typography from '@mui/material/Typography';
+import TextField  from "@mui/material/TextField";
+
 
 const Home = () => {
   useProtectedPage();
@@ -64,20 +64,17 @@ const Home = () => {
       }
     });
 
-    // console.log(objectOfCategorys, "ob");
     let newArray = Object.keys(objectOfCategorys);
     return newArray.map((category) => {
-      //   console.log(category);
       return (
-        <p
-          style={choosedCategory === category ? { color: "#e86e5a" } : null}
+        <Typography
           onClick={(event) => {
             event.stopPropagation();
             handleChooseCategory(category);
           }}
         >
           {category}
-        </p>
+        </Typography>
       );
     });
   };
@@ -107,11 +104,15 @@ const Home = () => {
             restaurants.length > 0 ? (
               restaurants
             ) : (
-              <p>Não encontramos :(</p>
+              <Typography color="textPrimary" variant="body1"> 
+                Nada foi encontrado :(
+              </Typography>
             )
           ) : (
-            <p>Busque pelo nome dos restaurantes</p>
-          )}
+            <Typography color="textPrimary" variant="body1"> 
+              Digite o nome do restaurante! 
+            </Typography>
+            )}
           {console.log("render")}
         </SearchContainerStyle>
       </>
@@ -138,6 +139,7 @@ const Home = () => {
     })
     .map((restaurant) => {
       return (
+
         <RestauranteContainer
           // onClick={goToDetails()}
           key={restaurant.id}
@@ -151,7 +153,7 @@ const Home = () => {
         </RestauranteContainer>
       );
     });
-
+  
   return (
     <>
       <SearchContainerStyle
@@ -161,13 +163,24 @@ const Home = () => {
         }}
       >
         <Header />
-        <SearchWrapper>
-          <input
-            type="text"
-            name="searchInput"
-            value={form.searchInput}
-            title="Insert the name of a restaurant"
-            onChange={(event) => {
+
+        <Box
+        sx={{
+          display:        "flex",
+          flexDirection:  "column",
+          marginTop:      '2vh',
+          marginBottom:   '2vh',
+        }}
+        >
+
+          <TextField
+          label="Restaurantes"
+          type="text"
+          variant="outlined"
+          name={"searchInput"}
+          placeholder={'Busca'}
+          value={form.searchInput}
+          onChange={(event) => {
               setSerachInputOnFocus(!false);
               onChange(event);
             }}
@@ -175,21 +188,28 @@ const Home = () => {
               event.stopPropagation();
               setSerachInputOnFocus(true);
             }}
-            //   onfocusout={(event) => console.log('out')}
-            placeholder="Restaurants"
-            required
+            InputProps={{
+              startAdornment: (
+                <SearchIcon /> 
+              ),
+            }}
           />
-          <img src={SearchIcon} />
-        </SearchWrapper>
+
+        </Box>
+
         <CategroysStyle>
           {foundRestaurants ? renderCategorys() : null}
         </CategroysStyle>
+
         {serachInputOnFocus && !form.searchInput ? (
-          <p>Busque pelo nome dos restaurantes</p>
-        ) : restaurants.length > 0 ? (
+            <Typography color="primary.main" variant="body1"> 
+              Digite o nome do restaurante! 
+            </Typography>        ) : restaurants.length > 0 ? (
           restaurants
         ) : (
-          <p>Não econtramos :(</p>
+          <Typography color="primary.main" variant="body1"> 
+            Nenhum restaurante encontrado :(
+          </Typography>
         )}
         {console.log("render")}
       </SearchContainerStyle>
