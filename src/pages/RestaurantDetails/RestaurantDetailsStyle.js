@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DropDownArrow from '../../img/DropDownArrow.png'
 
 export const RestaurantDetailsStyle = styled.div`
   display: flex;
@@ -7,42 +8,82 @@ export const RestaurantDetailsStyle = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  aside{
-    position: absolute;
+  aside {
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    opacity: 1;
-    z-index: 2;
+    background: black;
+    background: rgba(0, 0, 0, 0.5);
   }
-  aside > div{
+  aside > div {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 90%;
     height: 40%;
     background-color: white;
-    top: 30%;
-    display: hidden;
     opacity: 1;
-    z-index: 2;
   }
-  aside > button{
+  aside > div > button {
     cursor: pointer;
-    background-color: transparent;
+    background: none;
     border: none;
     width: 50%;
     height: 30%;
+    z-index: 2;
   }
-  aside > select{
+
+  aside > div > select:before {
+    appearance: inherit;
+    border: 1px solid black;
+    display: inline;
+    /* left: 50%; */
+    /* top: 50%; */
+    position: relative;
+    z-index: 40;
+    content: "";
+    width: 100vw;
+    height: 100vh;
+    /* min-width: 500px; */
+    /* min-height: 500px; */
+    background-color: black;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    /* opacity: 1; */
+    color: black;
+   }
+
+   aside > div > select > img{
+     display: flex;
+     position: relative;
+     visibility: visible;
+     background-color: black;
+     /* width: 50px; */
+     /* height: 50px; */
+   }
+
+  aside > div > select {
+    appearance: none;
+    position: relative;
+    background: none;
+    border: 1px solid #b8b8b8;
+    border-radius: 4px;
     width: 90%;
-    height: 30%;
+    height: 20%;
+    /* padding: 0 10%; */
+    font-size: 100%;
+    background-image: url('../../img/DropDownArrow.png');
   }
-  aside > p{
+  aside > div > p {
     width: 90%;
     height: 30%;
     text-align: center;
+    z-index: 2;
   }
   button {
     cursor: pointer;
@@ -106,7 +147,7 @@ export const RestauranteContainer = styled.div`
     height: 10%;
     width: 100%;
     p {
-    box-sizing: border-box;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
       height: 100%;

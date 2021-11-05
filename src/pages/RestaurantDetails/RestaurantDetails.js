@@ -9,6 +9,7 @@ import Header from "../../components/Header/Header";
 import useProtectedPage from "../../hooks/useProtectedPage"
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { useParams } from "react-router";
+import DropDownArrow from '../../img/DropDownArrow.png'
 
 
 
@@ -146,9 +147,14 @@ const RestaurantDetails = () => {
       {choosedRestaurant && newArray && category ? renderCategorys() : null}
       {console.log("render")}
       <aside id="popup">
+        <div>
         <p>Selecione a quantidade desejada</p>
-        <select>{renderOptions()}</select>
+        <select >
+          <img src={DropDownArrow}/>
+          {renderOptions()}
+        </select>
         <button>ADICIONAR AO CARRINHO</button>
+        </div>
       </aside>
     </RestaurantDetailsStyle>
   );
