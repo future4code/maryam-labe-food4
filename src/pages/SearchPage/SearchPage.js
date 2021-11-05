@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react"
-import Header from "../../components/Header/Header";
-import {SearchContainerStyle, RestauranteContainer} from './SearchContainerStyle';
-import { useForm } from '../../hooks/Hooks';
+import Header                   from "../../components/Header/Header";
+import {RestauranteContainer}   from './SearchContainerStyle';
+import { useForm }              from '../../hooks/Hooks';
 // import { useHistory, useParams } from "react-router-dom";
+import useProtectedPage from "../../hooks/useProtectedPage"
+import Box              from "@mui/material/Box";
 
-import SearchIcon from '@mui/icons-material/Search';
+import TextField        from "@mui/material/TextField";
+import InputAdornment   from "@mui/material/InputAdornment";
+import IconButton       from "@mui/material/IconButton";
+import SearchIcon       from '@mui/icons-material/Search';
+
 
 const SearchPage = () => {
-
+    useProtectedPage()
     // const history = useHistory();
     /* const pathParams = useParams();*/
 
@@ -132,7 +138,9 @@ const SearchPage = () => {
                 restaurant.name.toLowerCase().includes(form.searchInput.toLowerCase())
             )
         }).map((restaurant) =>{
+
         return(
+
             <RestauranteContainer 
             // onClick={goToDetails()}
             key={restaurant.id}>
@@ -153,22 +161,44 @@ const SearchPage = () => {
     }, [])
 
     return (
-        <>
-        <SearchContainerStyle>
+        <Box sx={{maxWidth: '100vw',                 
+        display:        'flex',
+        flexDirection:  'column',
+        justifyContent: 'center',
+        alignItems:     'center'
+        }}>
+
             <Header title="Busca"/>
-            <input
-            type="text"         
-            name="searchInput"
-            value={form.searchInput}
-            title="Insert the name of a restaurant"
-            onChange={() => inputChange()}
-            placeholder='Restaurants'
-            required
-            />
+
+            <Box sx={{
+                display:        'flex',
+                justifyContent: 'center',
+                marginBottom:   '1.5vh',
+                marginTop:      '1.5vh'
+                }}>
+
+                <TextField
+                    type="text"         
+                    name="searchInput"
+                    value={form.searchInput}
+                    title="Insert the name of a restaurant"
+                    onChange={() => inputChange()}
+                    placeholder='Restaurantes'
+                    required
+                    InputProps={{
+                        startAdornment: 
+                        <InputAdornment position="start">
+                            <IconButton>
+                                <SearchIcon/>
+                            </IconButton>
+                        </InputAdornment>,
+                    }}
+                />
+            </Box>
+
             { foundRestaurants ? (restaurants.length > 0 ? (restaurants) : (<p>Não econtramos :(</p>)) : (<p>Busque pelo nome dos restaurantes</p>)}
-            {console.log('render')}
-        </SearchContainerStyle>
-        </>
+
+        </Box>
     )
 }
 
