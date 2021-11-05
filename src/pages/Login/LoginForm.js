@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useForm from "../../hooks/useForm";
 import { loginData } from "../../services/user";
 import Box from "@mui/material/Box";
@@ -11,6 +11,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 import { useHistory } from "react-router";
 import { CircularProgress } from "@mui/material";
+import { goToSearch } from "../../routes/coordinator";
+import { ImgSplashScreenStyle } from "./styled"
+import SplashScreen from "../../img/SplashScreen.png"
+
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(true);
