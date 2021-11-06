@@ -1,4 +1,4 @@
-## Esse é o Rappi4D
+## Esse é o Rappi4D. Link: https://delicious-porter.surge.sh/
 
 Esse projeto simula um app de delivery de refeições, semelhante ao Ifood, Rappi, 99Food e outros.
 
